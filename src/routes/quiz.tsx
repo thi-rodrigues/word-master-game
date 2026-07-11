@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWords, type Word } from "@/lib/words-store";
+import { addScore, useUser } from "@/lib/user-store";
+
 
 const searchSchema = z.object({
   lang: z.enum(["pt", "en"]).default("pt"),
@@ -38,6 +40,7 @@ function normalize(s: string) {
 function Quiz() {
   const { lang } = Route.useSearch();
   const { words } = useWords();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   const [queue, setQueue] = useState<Word[]>([]);
@@ -45,6 +48,7 @@ function Quiz() {
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<null | { correct: boolean; expected: string }>(null);
   const [score, setScore] = useState({ right: 0, wrong: 0 });
+  const savedRef = useRef(false);
 
   useEffect(() => {
     setQueue(shuffle(words));
@@ -52,7 +56,23 @@ function Quiz() {
     setAnswer("");
     setResult(null);
     setScore({ right: 0, wrong: 0 });
+    savedRef.current = false;
   }, [words, lang]);
+
+  const finishedNow = queue.length > 0 && idx >= queue.length;
+  useEffect(() => {
+    if (finishedNow && user && !savedRef.current) {
+      savedRef.current = true;
+      addScore({
+        user,
+        lang,
+        right: score.right,
+        wrong: score.wrong,
+        total: queue.length,
+      });
+    }
+  }, [finishedNow, user, lang, score.right, score.wrong, queue.length]);
+
 
   const current = queue[idx];
   const { prompt, expected, promptLabel, answerLabel } = useMemo(() => {

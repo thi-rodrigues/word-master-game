@@ -1,10 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWords } from "@/lib/words-store";
+import { useUser } from "@/lib/user-store";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -17,6 +18,50 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { user, setUser } = useUser();
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  function onRegister(e: FormEvent) {
+    e.preventDefault();
+    if (!name.trim()) return;
+    setUser(name);
+    navigate({ to: "/play" });
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl">Bem-vindo!</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={onRegister} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Seu nome</Label>
+                <Input
+                  id="name"
+                  autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Digite seu nome"
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={!name.trim()}>
+                Começar
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return <WordManager user={user} />;
+}
+
+function WordManager({ user }: { user: string }) {
   const { words, add, remove } = useWords();
   const [en, setEn] = useState("");
   const [pt, setPt] = useState("");
@@ -30,13 +75,11 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-10 px-4">
+    <div className="min-h-screen bg-background py-10 px-4 pb-28">
       <div className="mx-auto max-w-2xl space-y-8">
         <header className="text-center space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">Vocabulário</h1>
-          <p className="text-muted-foreground">
-            Cadastre palavras e treine em inglês ou português.
-          </p>
+          <p className="text-muted-foreground">Olá, {user}! Cadastre palavras para treinar.</p>
         </header>
 
         <Card>
@@ -48,21 +91,11 @@ function Home() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="en">Inglês</Label>
-                  <Input
-                    id="en"
-                    value={en}
-                    onChange={(e) => setEn(e.target.value)}
-                    placeholder="apple"
-                  />
+                  <Input id="en" value={en} onChange={(e) => setEn(e.target.value)} placeholder="apple" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="pt">Português</Label>
-                  <Input
-                    id="pt"
-                    value={pt}
-                    onChange={(e) => setPt(e.target.value)}
-                    placeholder="maçã"
-                  />
+                  <Input id="pt" value={pt} onChange={(e) => setPt(e.target.value)} placeholder="maçã" />
                 </div>
               </div>
               <Button type="submit" className="w-full">Adicionar</Button>
@@ -72,31 +105,11 @@ function Home() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Jogar</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild className="flex-1" disabled={words.length === 0}>
-              <Link to="/quiz" search={{ lang: "pt" }}>
-                Responder em Português
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" className="flex-1" disabled={words.length === 0}>
-              <Link to="/quiz" search={{ lang: "en" }}>
-                Responder em Inglês
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
             <CardTitle>Palavras cadastradas ({words.length})</CardTitle>
           </CardHeader>
           <CardContent>
             {words.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                Nenhuma palavra ainda. Adicione a primeira acima.
-              </p>
+              <p className="text-sm text-muted-foreground">Nenhuma palavra ainda. Adicione a primeira acima.</p>
             ) : (
               <ul className="divide-y">
                 {words.map((w) => (
@@ -105,9 +118,7 @@ function Home() {
                       <strong>{w.en}</strong>
                       <span className="text-muted-foreground"> — {w.pt}</span>
                     </span>
-                    <Button size="sm" variant="ghost" onClick={() => remove(w.id)}>
-                      Remover
-                    </Button>
+                    <Button size="sm" variant="ghost" onClick={() => remove(w.id)}>Remover</Button>
                   </li>
                 ))}
               </ul>
