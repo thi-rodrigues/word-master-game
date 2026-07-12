@@ -1,0 +1,92 @@
+[
+  {
+    "id": "shared-003",
+    "en": "house",
+    "pt": "casa",
+    "category": "Casa"
+  },
+  {
+    "id": "shared-004",
+    "en": "sun",
+    "pt": "sol",
+    "category": "Natureza"
+  },
+  {
+    "id": "shared-005",
+    "en": "water",
+    "pt": "água",
+    "category": "Natureza"
+  },
+  {
+    "id": "shared-006",
+    "en": "friend",
+    "pt": "amigo",
+    "category": "Pessoas"
+  },
+  {
+    "id": "shared-007",
+    "en": "school",
+    "pt": "escola",
+    "category": "Lugares"
+  },
+  {
+    "id": "shared-008",
+    "en": "music",
+    "pt": "música",
+    "category": "Arte"
+  },
+  {
+    "id": "shared-1783818027073",
+    "en": "test",
+    "pt": "teste",
+    "category": "Sem categoria"
+  },
+  {
+    "id": "shared-1783818049981",
+    "en": "car",
+    "pt": "carro",
+    "category": "Transporte"
+  },
+  {
+    "id": "shared-1783818124234",
+    "en": "blue",
+    "pt": "azul",
+    "category": "Cores"
+  },
+  {
+    "id": "shared-1783818222299",
+    "en": "green",
+    "pt": "verde",
+    "category": "Cores"
+  },
+  {
+    "id": "shared-1783818234705",
+    "en": "pen",
+    "pt": "caneta",
+    "category": "Escola"
+  },
+  {
+    "id": "shared-1783820343986",
+    "en": "apple",
+    "pt": "maçã",
+    "category": "Fruta"
+  },
+  {
+    "id": "shared-1783897458002",
+    "en": "orange",
+    "pt": "laranja",
+    "category": "Cores"
+  },
+  {
+    "id": "shared-1783898218773",
+    "en": "mirror",
+    "pt": "espelho",
+    "category": "Banheiro"
+  },
+  {
+    "id": "shared-1783899170441-wjbob1d8x",
+    "en": "window",
+    "pt": "janela",
+    "category": "Quarto"
+  }
+]
