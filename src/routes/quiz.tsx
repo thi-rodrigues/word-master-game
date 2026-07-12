@@ -81,15 +81,16 @@ function Quiz() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
 
   useEffect(() => {
-    if (words === null) return;
+    if (filteredWords === null) return;
 
     const snapshot = readQuizSnapshot();
 
     if (
-      words.length > 0 &&
+      filteredWords.length > 0 &&
       snapshot &&
       snapshot.mode === mode &&
       snapshot.lang === lang &&
+      (snapshot.categoriesKey ?? "") === categoriesKey &&
       snapshot.queue.length > 0 &&
       !snapshot.finished
     ) {
@@ -106,7 +107,7 @@ function Quiz() {
       return;
     }
 
-    setQueue(shuffle(words));
+    setQueue(shuffle(filteredWords));
     setIdx(0);
     setAnswer("");
     setResult(null);
@@ -116,7 +117,7 @@ function Quiz() {
     setFinished(false);
     setSaved(false);
     setStartedAt(Date.now());
-  }, [words, lang, mode]);
+  }, [filteredWords, lang, mode, categoriesKey]);
 
   useEffect(() => {
     if (paused || finished) return;
