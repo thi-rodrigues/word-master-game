@@ -148,6 +148,7 @@ function Quiz() {
   }, [
     mode,
     lang,
+    categoriesKey,
     queue,
     idx,
     answer,
