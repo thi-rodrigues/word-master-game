@@ -133,6 +133,7 @@ function Quiz() {
     saveQuizSnapshot({
       mode,
       lang,
+      categoriesKey,
       queue,
       idx,
       answer,
