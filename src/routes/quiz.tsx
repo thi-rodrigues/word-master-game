@@ -222,11 +222,11 @@ function Quiz() {
 
   if (filteredWords.length === 0) {
     return (
-      <Empty>
-        Nenhuma palavra encontrada para as categorias selecionadas.
-      </Empty>
+      <Empty>Nenhuma palavra encontrada para as categorias selecionadas.</Empty>
     );
   }
+
+  const activeWords: Word[] = filteredWords;
 
   function submit(e: FormEvent) {
     e.preventDefault();
