@@ -212,12 +212,20 @@ function Quiz() {
     };
   }, [current, lang]);
 
-  if (words === null) {
+  if (words === null || filteredWords === null) {
     return <Loading>Carregando vocabulário...</Loading>;
   }
 
   if (words.length === 0) {
     return <Empty>Nenhuma palavra cadastrada. Volte e cadastre algumas primeiro.</Empty>;
+  }
+
+  if (filteredWords.length === 0) {
+    return (
+      <Empty>
+        Nenhuma palavra encontrada para as categorias selecionadas.
+      </Empty>
+    );
   }
 
   function submit(e: FormEvent) {
