@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { clearQuizSnapshot, readQuizSnapshot, saveQuizSnapshot } from "@/lib/quiz-state";
-import { useVocabularyMode, useWordsByMode, type Word } from "@/lib/words-store";
+import { useVocabularyMode, useWordsByMode, wordCategory, type Word } from "@/lib/words-store";
 import { addScore, useUser } from "@/lib/user-store";
 
 const searchSchema = z.object({
   lang: z.enum(["pt", "en"]).default("pt"),
+  categories: z.string().optional(),
 });
 
 export const Route = createFileRoute("/quiz")({
