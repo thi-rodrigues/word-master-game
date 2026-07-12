@@ -1,12 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWords, type Word } from "@/lib/words-store";
+import { clearQuizSnapshot, readQuizSnapshot, saveQuizSnapshot } from "@/lib/quiz-state";
+import { useVocabularyMode, useWordsByMode, type Word } from "@/lib/words-store";
 import { addScore, useUser } from "@/lib/user-store";
-
 
 const searchSchema = z.object({
   lang: z.enum(["pt", "en"]).default("pt"),
@@ -37,9 +37,17 @@ function normalize(s: string) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
+function formatDuration(seconds: number) {
+  const total = Math.max(0, Math.floor(seconds));
+  const minutes = Math.floor(total / 60);
+  const remainder = total % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
+}
+
 function Quiz() {
   const { lang } = Route.useSearch();
-  const { words } = useWords();
+  const { mode } = useVocabularyMode();
+  const { words } = useWordsByMode(mode);
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -48,31 +56,110 @@ function Quiz() {
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<null | { correct: boolean; expected: string }>(null);
   const [score, setScore] = useState({ right: 0, wrong: 0 });
-  const savedRef = useRef(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [startedAt, setStartedAt] = useState<number | null>(null);
 
   useEffect(() => {
+    const snapshot = readQuizSnapshot();
+
+    if (snapshot && snapshot.mode === mode && snapshot.lang === lang && !snapshot.finished) {
+      setQueue(snapshot.queue);
+      setIdx(snapshot.idx);
+      setAnswer(snapshot.answer);
+      setResult(snapshot.result);
+      setScore(snapshot.score);
+      setElapsedSeconds(snapshot.elapsedSeconds);
+      setPaused(snapshot.paused);
+      setFinished(snapshot.finished);
+      setSaved(snapshot.saved);
+      setStartedAt(snapshot.startedAt);
+      return;
+    }
+
     setQueue(shuffle(words));
     setIdx(0);
     setAnswer("");
     setResult(null);
     setScore({ right: 0, wrong: 0 });
-    savedRef.current = false;
-  }, [words, lang]);
+    setElapsedSeconds(0);
+    setPaused(false);
+    setFinished(false);
+    setSaved(false);
+    setStartedAt(Date.now());
+  }, [words, lang, mode]);
 
-  const finishedNow = queue.length > 0 && idx >= queue.length;
   useEffect(() => {
-    if (finishedNow && user && !savedRef.current) {
-      savedRef.current = true;
-      addScore({
-        user,
-        lang,
-        right: score.right,
-        wrong: score.wrong,
-        total: queue.length,
-      });
-    }
-  }, [finishedNow, user, lang, score.right, score.wrong, queue.length]);
+    if (paused || finished) return;
+    const timer = window.setInterval(() => {
+      setElapsedSeconds((current) => current + 1);
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [paused, finished]);
 
+  useEffect(() => {
+    saveQuizSnapshot({
+      mode,
+      lang,
+      queue,
+      idx,
+      answer,
+      result,
+      score,
+      elapsedSeconds,
+      paused,
+      finished,
+      saved,
+      startedAt,
+    });
+  }, [
+    mode,
+    lang,
+    queue,
+    idx,
+    answer,
+    result,
+    score,
+    elapsedSeconds,
+    paused,
+    finished,
+    saved,
+    startedAt,
+  ]);
+
+  const completed = idx >= queue.length;
+
+  useEffect(() => {
+    if (completed && !finished) {
+      setFinished(true);
+    }
+  }, [completed, finished]);
+
+  useEffect(() => {
+    if ((!finished && !completed) || !user || saved) return;
+    setSaved(true);
+    clearQuizSnapshot();
+    addScore({
+      user,
+      lang,
+      right: score.right,
+      wrong: score.wrong,
+      total: queue.length,
+      durationSeconds: elapsedSeconds,
+    });
+  }, [
+    finished,
+    completed,
+    user,
+    saved,
+    lang,
+    score.right,
+    score.wrong,
+    queue.length,
+    elapsedSeconds,
+  ]);
 
   const current = queue[idx];
   const { prompt, expected, promptLabel, answerLabel } = useMemo(() => {
@@ -94,18 +181,14 @@ function Quiz() {
   }, [current, lang]);
 
   if (words.length === 0) {
-    return (
-      <Empty>
-        Nenhuma palavra cadastrada. Volte e cadastre algumas primeiro.
-      </Empty>
-    );
+    return <Empty>Nenhuma palavra cadastrada. Volte e cadastre algumas primeiro.</Empty>;
   }
-
-  const finished = idx >= queue.length;
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    if (!current || result) return;
+    if (!current || result || paused || finished) return;
+    if (!answer.trim()) return;
+
     const correct = normalize(answer) === normalize(expected);
     setResult({ correct, expected });
     setScore((s) => ({
@@ -120,24 +203,49 @@ function Quiz() {
     setResult(null);
   }
 
+  function skipWord() {
+    if (!current || paused || finished) return;
+    setIdx((i) => i + 1);
+    setAnswer("");
+    setResult(null);
+  }
+
+  function finishGame() {
+    setFinished(true);
+    setPaused(false);
+    setResult(null);
+    clearQuizSnapshot();
+  }
+
   function restart() {
     setQueue(shuffle(words));
     setIdx(0);
     setAnswer("");
     setResult(null);
     setScore({ right: 0, wrong: 0 });
+    setElapsedSeconds(0);
+    setPaused(false);
+    setFinished(false);
+    setSaved(false);
+    setStartedAt(Date.now());
+    clearQuizSnapshot();
   }
+
+  const finishedView = finished || completed;
 
   return (
     <div className="min-h-screen bg-background py-10 px-4">
       <div className="mx-auto max-w-xl space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <Button variant="ghost" onClick={() => navigate({ to: "/" })}>
             ← Voltar
           </Button>
-          <span className="text-sm text-muted-foreground">
-            {lang === "pt" ? "Modo: Português" : "Modo: Inglês"}
-          </span>
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <span>{lang === "pt" ? "Modo: Português" : "Modo: Inglês"}</span>
+            <span className="rounded-full bg-muted px-2 py-1 text-xs font-medium text-foreground">
+              ⏱️ {formatDuration(elapsedSeconds)}
+            </span>
+          </div>
         </div>
 
         <Card>
@@ -145,18 +253,19 @@ function Quiz() {
             <CardTitle className="flex items-center justify-between">
               <span>Teste</span>
               <span className="text-sm font-normal text-muted-foreground">
-                {Math.min(idx + (finished ? 0 : 1), queue.length)} / {queue.length}
+                {Math.min(idx + (finishedView ? 0 : 1), queue.length)} / {queue.length}
               </span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {finished ? (
+            {finishedView ? (
               <div className="space-y-4 text-center">
                 <h2 className="text-2xl font-semibold">Fim!</h2>
                 <p className="text-muted-foreground">
-                  Acertos: {score.right} · Erros: {score.wrong}
+                  Acertos: {score.right} · Erros: {score.wrong} · Tempo:{" "}
+                  {formatDuration(elapsedSeconds)}
                 </p>
-                <div className="flex gap-3 justify-center">
+                <div className="flex gap-3 justify-center flex-wrap">
                   <Button onClick={restart}>Jogar de novo</Button>
                   <Button asChild variant="secondary">
                     <Link to="/">Início</Link>
@@ -170,47 +279,80 @@ function Quiz() {
                   <p className="text-4xl font-bold">{prompt}</p>
                 </div>
 
-                <form onSubmit={submit} className="space-y-3">
-                  <Input
-                    autoFocus
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                    placeholder={answerLabel}
-                    disabled={!!result}
-                  />
-                  {!result ? (
-                    <Button type="submit" className="w-full" disabled={!answer.trim()}>
-                      Verificar
+                {paused ? (
+                  <div className="rounded-md border border-dashed p-4 text-center space-y-3">
+                    <p className="font-medium">Jogo pausado</p>
+                    <p className="text-sm text-muted-foreground">
+                      Você pode continuar depois sem perder seu progresso.
+                    </p>
+                    <Button onClick={() => setPaused(false)} className="w-full">
+                      Continuar
                     </Button>
-                  ) : (
-                    <Button type="button" className="w-full" onClick={next}>
-                      Próxima
-                    </Button>
-                  )}
-                </form>
-
-                {result && (
-                  <div
-                    className={`rounded-md p-3 text-sm ${
-                      result.correct
-                        ? "bg-primary/10 text-foreground"
-                        : "bg-destructive/10 text-foreground"
-                    }`}
-                  >
-                    {result.correct ? (
-                      <p>✅ Correto!</p>
-                    ) : (
-                      <p>
-                        ❌ Resposta correta: <strong>{result.expected}</strong>
-                      </p>
-                    )}
                   </div>
-                )}
+                ) : (
+                  <>
+                    <form onSubmit={submit} className="space-y-3">
+                      <Input
+                        autoFocus
+                        value={answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                        placeholder={answerLabel}
+                        disabled={!!result}
+                      />
+                      {!result ? (
+                        <div className="grid gap-2 sm:grid-cols-2">
+                          <Button type="submit" className="w-full" disabled={!answer.trim()}>
+                            Verificar
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            className="w-full"
+                            onClick={skipWord}
+                          >
+                            Pular palavra
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button type="button" className="w-full" onClick={next}>
+                          Próxima
+                        </Button>
+                      )}
+                    </form>
 
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>Acertos: {score.right}</span>
-                  <span>Erros: {score.wrong}</span>
-                </div>
+                    {result && (
+                      <div
+                        className={`rounded-md p-3 text-sm ${
+                          result.correct
+                            ? "bg-primary/10 text-foreground"
+                            : "bg-destructive/10 text-foreground"
+                        }`}
+                      >
+                        {result.correct ? (
+                          <p>✅ Correto!</p>
+                        ) : (
+                          <p>
+                            ❌ Resposta correta: <strong>{result.expected}</strong>
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>Acertos: {score.right}</span>
+                      <span>Erros: {score.wrong}</span>
+                    </div>
+
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <Button type="button" variant="secondary" onClick={() => setPaused(true)}>
+                        Pausar
+                      </Button>
+                      <Button type="button" variant="destructive" onClick={finishGame}>
+                        Finalizar jogo
+                      </Button>
+                    </div>
+                  </>
+                )}
               </>
             )}
           </CardContent>

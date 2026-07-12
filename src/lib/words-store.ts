@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import sharedBaseWords from "../../public/words-base.json";
 
 export type Word = {
   id: string;
@@ -6,29 +7,67 @@ export type Word = {
   pt: string;
 };
 
-const KEY = "vocab-words-v1";
+export type VocabularyMode = "shared" | "custom";
 
-function read(): Word[] {
+const CUSTOM_KEY = "vocab-words-v1";
+const MODE_KEY = "vocab-mode-v1";
+const SHARED_WORDS = sharedBaseWords as Word[];
+
+function readCustomWords(): Word[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const raw = window.localStorage.getItem(CUSTOM_KEY);
     return raw ? (JSON.parse(raw) as Word[]) : [];
   } catch {
     return [];
   }
 }
 
-function write(words: Word[]) {
-  window.localStorage.setItem(KEY, JSON.stringify(words));
+function writeCustomWords(words: Word[]) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(CUSTOM_KEY, JSON.stringify(words));
   window.dispatchEvent(new Event("vocab-words-changed"));
+}
+
+function readMode(): VocabularyMode {
+  if (typeof window === "undefined") return "custom";
+  const raw = window.localStorage.getItem(MODE_KEY);
+  return raw === "shared" ? "shared" : "custom";
+}
+
+export async function getSharedWords(): Promise<Word[]> {
+  return SHARED_WORDS;
+}
+
+export function useVocabularyMode() {
+  const [mode, setModeState] = useState<VocabularyMode>(readMode());
+
+  useEffect(() => {
+    setModeState(readMode());
+    const onChange = () => setModeState(readMode());
+    window.addEventListener("vocab-mode-changed", onChange);
+    window.addEventListener("storage", onChange);
+    return () => {
+      window.removeEventListener("vocab-mode-changed", onChange);
+      window.removeEventListener("storage", onChange);
+    };
+  }, []);
+
+  return {
+    mode,
+    setMode(next: VocabularyMode) {
+      window.localStorage.setItem(MODE_KEY, next);
+      window.dispatchEvent(new Event("vocab-mode-changed"));
+    },
+  };
 }
 
 export function useWords() {
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
-    setWords(read());
-    const onChange = () => setWords(read());
+    setWords(readCustomWords());
+    const onChange = () => setWords(readCustomWords());
     window.addEventListener("vocab-words-changed", onChange);
     window.addEventListener("storage", onChange);
     return () => {
@@ -41,17 +80,50 @@ export function useWords() {
     words,
     add(en: string, pt: string) {
       const next = [
-        ...read(),
+        ...readCustomWords(),
         { id: crypto.randomUUID(), en: en.trim(), pt: pt.trim() },
       ];
-      write(next);
+      writeCustomWords(next);
     },
     remove(id: string) {
-      write(read().filter((w) => w.id !== id));
+      writeCustomWords(readCustomWords().filter((w) => w.id !== id));
     },
   };
 }
 
+export function useWordsByMode(mode: VocabularyMode) {
+  const [words, setWords] = useState<Word[]>([]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function sync() {
+      const nextWords = mode === "shared" ? await getSharedWords() : readCustomWords();
+      if (!ignore) {
+        setWords(nextWords);
+      }
+    }
+
+    void sync();
+
+    const onChange = () => {
+      void sync();
+    };
+
+    window.addEventListener("vocab-words-changed", onChange);
+    window.addEventListener("vocab-mode-changed", onChange);
+    window.addEventListener("storage", onChange);
+    return () => {
+      ignore = true;
+      window.removeEventListener("vocab-words-changed", onChange);
+      window.removeEventListener("vocab-mode-changed", onChange);
+      window.removeEventListener("storage", onChange);
+    };
+  }, [mode]);
+
+  return { words };
+}
+
 export function getWords() {
-  return read();
+  return readCustomWords();
 }

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWords } from "@/lib/words-store";
+import { useVocabularyMode, useWordsByMode } from "@/lib/words-store";
 import { useUser } from "@/lib/user-store";
 
 export const Route = createFileRoute("/play")({
@@ -10,14 +10,17 @@ export const Route = createFileRoute("/play")({
 });
 
 function Play() {
-  const { words } = useWords();
+  const { mode } = useVocabularyMode();
+  const { words } = useWordsByMode(mode);
   const { user } = useUser();
 
   if (!user) {
     return (
       <Centered>
         <p className="mb-4">Cadastre seu nome primeiro.</p>
-        <Button asChild><Link to="/">Ir para o início</Link></Button>
+        <Button asChild>
+          <Link to="/">Ir para o início</Link>
+        </Button>
       </Centered>
     );
   }
@@ -25,8 +28,14 @@ function Play() {
   if (words.length === 0) {
     return (
       <Centered>
-        <p className="mb-4">Cadastre pelo menos uma palavra para jogar.</p>
-        <Button asChild><Link to="/">Cadastrar palavras</Link></Button>
+        <p className="mb-4">
+          {mode === "shared"
+            ? "O vocabulário compartilhado está vazio no momento."
+            : "Cadastre pelo menos uma palavra para jogar."}
+        </p>
+        <Button asChild>
+          <Link to="/">Voltar ao início</Link>
+        </Button>
       </Centered>
     );
   }
@@ -38,11 +47,18 @@ function Play() {
           <CardTitle className="text-2xl">Escolha o modo</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
+          <p className="text-center text-sm text-muted-foreground">
+            Vocabulário atual: {mode === "shared" ? "Compartilhado" : "Próprio"}
+          </p>
           <Button asChild size="lg">
-            <Link to="/quiz" search={{ lang: "pt" }}>Responder em Português</Link>
+            <Link to="/quiz" search={{ lang: "pt" }}>
+              Responder em Português
+            </Link>
           </Button>
           <Button asChild size="lg" variant="secondary">
-            <Link to="/quiz" search={{ lang: "en" }}>Responder em Inglês</Link>
+            <Link to="/quiz" search={{ lang: "en" }}>
+              Responder em Inglês
+            </Link>
           </Button>
         </CardContent>
       </Card>

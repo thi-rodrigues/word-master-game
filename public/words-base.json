@@ -1,0 +1,10 @@
+[
+  { "id": "shared-001", "en": "apple", "pt": "maçã" },
+  { "id": "shared-002", "en": "book", "pt": "livro" },
+  { "id": "shared-003", "en": "house", "pt": "casa" },
+  { "id": "shared-004", "en": "sun", "pt": "sol" },
+  { "id": "shared-005", "en": "water", "pt": "água" },
+  { "id": "shared-006", "en": "friend", "pt": "amigo" },
+  { "id": "shared-007", "en": "school", "pt": "escola" },
+  { "id": "shared-008", "en": "music", "pt": "música" }
+]

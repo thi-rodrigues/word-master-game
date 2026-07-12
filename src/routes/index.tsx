@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWords } from "@/lib/words-store";
+import { useVocabularyMode, useWords, type VocabularyMode } from "@/lib/words-store";
 import { useUser } from "@/lib/user-store";
 
 export const Route = createFileRoute("/")({
@@ -12,20 +12,26 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Vocabulário — Inglês & Português" },
-      { name: "description", content: "Cadastre palavras e treine seu vocabulário em inglês ou português." },
+      {
+        name: "description",
+        content: "Cadastre palavras e treine seu vocabulário em inglês ou português.",
+      },
     ],
   }),
 });
 
 function Home() {
   const { user, setUser } = useUser();
+  const { setMode } = useVocabularyMode();
   const [name, setName] = useState("");
+  const [mode, setSelectedMode] = useState<VocabularyMode>("shared");
   const navigate = useNavigate();
 
   function onRegister(e: FormEvent) {
     e.preventDefault();
     if (!name.trim()) return;
     setUser(name);
+    setMode(mode);
     navigate({ to: "/play" });
   }
 
@@ -48,6 +54,32 @@ function Home() {
                   placeholder="Digite seu nome"
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label>Escolha o vocabulário</Label>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <Button
+                    type="button"
+                    variant={mode === "shared" ? "default" : "secondary"}
+                    onClick={() => setSelectedMode("shared")}
+                  >
+                    Compartilhado
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={mode === "custom" ? "default" : "secondary"}
+                    onClick={() => setSelectedMode("custom")}
+                  >
+                    Meu próprio
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {mode === "shared"
+                    ? "Usar o vocabulário compartilhado pelos usuários."
+                    : "Criar e editar o seu próprio vocabulário."}
+                </p>
+              </div>
+
               <Button type="submit" className="w-full" disabled={!name.trim()}>
                 Começar
               </Button>
@@ -91,14 +123,26 @@ function WordManager({ user }: { user: string }) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="en">Inglês</Label>
-                  <Input id="en" value={en} onChange={(e) => setEn(e.target.value)} placeholder="apple" />
+                  <Input
+                    id="en"
+                    value={en}
+                    onChange={(e) => setEn(e.target.value)}
+                    placeholder="apple"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="pt">Português</Label>
-                  <Input id="pt" value={pt} onChange={(e) => setPt(e.target.value)} placeholder="maçã" />
+                  <Input
+                    id="pt"
+                    value={pt}
+                    onChange={(e) => setPt(e.target.value)}
+                    placeholder="maçã"
+                  />
                 </div>
               </div>
-              <Button type="submit" className="w-full">Adicionar</Button>
+              <Button type="submit" className="w-full">
+                Adicionar
+              </Button>
             </form>
           </CardContent>
         </Card>
@@ -109,7 +153,9 @@ function WordManager({ user }: { user: string }) {
           </CardHeader>
           <CardContent>
             {words.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Nenhuma palavra ainda. Adicione a primeira acima.</p>
+              <p className="text-sm text-muted-foreground">
+                Nenhuma palavra ainda. Adicione a primeira acima.
+              </p>
             ) : (
               <ul className="divide-y">
                 {words.map((w) => (
@@ -118,7 +164,9 @@ function WordManager({ user }: { user: string }) {
                       <strong>{w.en}</strong>
                       <span className="text-muted-foreground"> — {w.pt}</span>
                     </span>
-                    <Button size="sm" variant="ghost" onClick={() => remove(w.id)}>Remover</Button>
+                    <Button size="sm" variant="ghost" onClick={() => remove(w.id)}>
+                      Remover
+                    </Button>
                   </li>
                 ))}
               </ul>

@@ -10,6 +10,7 @@ export type Score = {
   right: number;
   wrong: number;
   total: number;
+  durationSeconds: number;
   at: number;
 };
 

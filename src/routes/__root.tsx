@@ -13,7 +13,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { FloatingMenu } from "../components/floating-menu";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -80,9 +79,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Vocabulário — Inglês & Português" },
-      { name: "description", content: "Cadastre palavras e treine seu vocabulário em inglês ou português." },
+      {
+        name: "description",
+        content: "Cadastre palavras e treine seu vocabulário em inglês ou português.",
+      },
       { property: "og:title", content: "Vocabulário — Inglês & Português" },
-      { property: "og:description", content: "Cadastre palavras e treine seu vocabulário em inglês ou português." },
+      {
+        property: "og:description",
+        content: "Cadastre palavras e treine seu vocabulário em inglês ou português.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -125,4 +130,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-
