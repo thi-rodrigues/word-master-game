@@ -6,10 +6,10 @@ import { useUser } from "@/lib/user-store";
 
 export function FloatingMenu() {
   const [open, setOpen] = useState(false);
-  const { user, clearUser } = useUser();
+  const { user, clearUser, isReady } = useUser();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  if (!user) return null;
+  if (!isReady || !user) return null;
 
   const items = [
     { to: "/", label: "Início", icon: HomeIcon },

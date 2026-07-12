@@ -52,7 +52,7 @@ export async function getSharedWords(): Promise<Word[]> {
 }
 
 export function useVocabularyMode() {
-  const [mode, setModeState] = useState<VocabularyMode>(readMode());
+  const [mode, setModeState] = useState<VocabularyMode>("custom");
 
   useEffect(() => {
     setModeState(readMode());
@@ -75,7 +75,7 @@ export function useVocabularyMode() {
 }
 
 export function useWords() {
-  const [words, setWords] = useState<Word[]>(() => readCustomWords());
+  const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
     setWords(readCustomWords());
@@ -129,8 +129,29 @@ export function useWords() {
       writeCustomWords(next);
       return true;
     },
-    remove(id: string) {
-      writeCustomWords(readCustomWords().filter((w) => w.id !== id));
+    async remove(id: string) {
+      const nextWords = readCustomWords().filter((w) => w.id !== id);
+
+      try {
+        const response = await fetch("/api/words", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
+        });
+
+        if (response.ok) {
+          const payload = (await response.json()) as { words?: Word[] };
+          writeCustomWords(payload.words ?? nextWords);
+          return true;
+        }
+      } catch {
+        // Falls back to local persistence if the server endpoint is unavailable.
+      }
+
+      writeCustomWords(nextWords);
+      return true;
     },
   };
 }

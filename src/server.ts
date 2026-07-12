@@ -84,6 +84,16 @@ async function persistWordToSharedBase(en: string, pt: string) {
   return { ok: true, words: nextWords };
 }
 
+async function removeWordFromSharedBase(id: string) {
+  const wordsFilePath = path.resolve(process.cwd(), "public", "words-base.json");
+  const raw = await fs.readFile(wordsFilePath, "utf-8");
+  const words = JSON.parse(raw) as Array<{ id: string; en: string; pt: string }>;
+  const nextWords = words.filter((word) => word.id !== id);
+
+  await fs.writeFile(wordsFilePath, `${JSON.stringify(nextWords, null, 2)}\n`, "utf-8");
+  return { ok: true, words: nextWords };
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
@@ -112,6 +122,20 @@ export default {
           );
         }
 
+        return Response.json({ ok: true, words: result.words }, { status: 200 });
+      }
+
+      if (url.pathname === "/api/words" && request.method === "DELETE") {
+        const payload = (await request.json().catch(() => null)) as { id?: string } | null;
+
+        if (!payload?.id?.trim()) {
+          return Response.json(
+            { ok: false, message: "Informe o identificador da palavra." },
+            { status: 400 },
+          );
+        }
+
+        const result = await removeWordFromSharedBase(payload.id);
         return Response.json({ ok: true, words: result.words }, { status: 200 });
       }
 

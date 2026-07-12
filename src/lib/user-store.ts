@@ -30,7 +30,7 @@ function readScores(): Score[] {
 }
 
 export function useUser() {
-  const [user, setUser] = useState<string | null>(() => readUser());
+  const [user, setUser] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function useUser() {
 }
 
 export function useScores() {
-  const [scores, setScores] = useState<Score[]>(() => readScores());
+  const [scores, setScores] = useState<Score[]>([]);
 
   useEffect(() => {
     setScores(readScores());

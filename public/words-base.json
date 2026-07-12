@@ -1,15 +1,5 @@
 [
   {
-    "id": "shared-001",
-    "en": "apple",
-    "pt": "maçã"
-  },
-  {
-    "id": "shared-002",
-    "en": "book",
-    "pt": "livro"
-  },
-  {
     "id": "shared-003",
     "en": "house",
     "pt": "casa"
@@ -50,11 +40,6 @@
     "pt": "carro"
   },
   {
-    "id": "shared-1783818066578",
-    "en": "orange",
-    "pt": "laranja"
-  },
-  {
     "id": "shared-1783818124234",
     "en": "blue",
     "pt": "azul"
@@ -68,5 +53,10 @@
     "id": "shared-1783818234705",
     "en": "pen",
     "pt": "caneta"
+  },
+  {
+    "id": "shared-1783820343986",
+    "en": "apple",
+    "pt": "maça"
   }
 ]
