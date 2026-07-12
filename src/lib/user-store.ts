@@ -12,6 +12,8 @@ export type Score = {
   total: number;
   durationSeconds: number;
   at: number;
+  startedAt: number;
+  finishedAt: number;
 };
 
 function readUser(): string | null {

@@ -15,6 +15,35 @@ function formatDuration(seconds: number) {
   return `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
 }
 
+function formatDate(timestamp: number): string {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+function formatTime(timestamp: number): string {
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function formatDateTimeRange(startedAt: number, finishedAt: number): string {
+  const startDate = new Date(startedAt);
+  const endDate = new Date(finishedAt);
+  const sameDay = startDate.toDateString() === endDate.toDateString();
+
+  if (sameDay) {
+    return `${formatDate(startedAt)} · ${formatTime(startedAt)} - ${formatTime(finishedAt)}`;
+  }
+
+  return `${formatDate(startedAt)} ${formatTime(startedAt)} - ${formatDate(finishedAt)} ${formatTime(finishedAt)}`;
+}
+
 function Ranking() {
   const { scores } = useScores();
 
@@ -57,6 +86,9 @@ function Ranking() {
                         <p className="text-xs text-muted-foreground">
                           {score.lang === "pt" ? "Português" : "Inglês"} ·{" "}
                           {formatDuration(score.durationSeconds)}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {formatDateTimeRange(score.startedAt, score.finishedAt)}
                         </p>
                       </div>
                     </div>

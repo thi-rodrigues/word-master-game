@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import * as XLSX from "xlsx";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
@@ -87,11 +88,118 @@ async function persistWordToSharedBase(en: string, pt: string) {
 async function removeWordFromSharedBase(id: string) {
   const wordsFilePath = path.resolve(process.cwd(), "public", "words-base.json");
   const raw = await fs.readFile(wordsFilePath, "utf-8");
-  const words = JSON.parse(raw) as Array<{ id: string; en: string; pt: string }>;
+  const words = JSON.parse(raw) as Array<{ id: string; en: string; pt: string; category?: string }>;
   const nextWords = words.filter((word) => word.id !== id);
 
   await fs.writeFile(wordsFilePath, `${JSON.stringify(nextWords, null, 2)}\n`, "utf-8");
   return { ok: true, words: nextWords };
+}
+
+async function updateWordInSharedBase(id: string, category?: string) {
+  const wordsFilePath = path.resolve(process.cwd(), "public", "words-base.json");
+  const raw = await fs.readFile(wordsFilePath, "utf-8");
+  const words = JSON.parse(raw) as Array<{ id: string; en: string; pt: string; category?: string }>;
+  
+  const wordIndex = words.findIndex((word) => word.id === id);
+  
+  if (wordIndex === -1) {
+    return { ok: false, reason: "not_found", words };
+  }
+
+  const nextWords = [...words];
+  nextWords[wordIndex] = {
+    ...nextWords[wordIndex],
+    category: category?.trim() || undefined,
+  };
+
+  await fs.writeFile(wordsFilePath, `${JSON.stringify(nextWords, null, 2)}\n`, "utf-8");
+  return { ok: true, words: nextWords };
+}
+
+async function importWordsFromExcel(fileBuffer: ArrayBuffer) {
+  const wordsFilePath = path.resolve(process.cwd(), "public", "words-base.json");
+  const raw = await fs.readFile(wordsFilePath, "utf-8");
+  const existingWords = JSON.parse(raw) as Array<{ id: string; en: string; pt: string; category?: string }>;
+
+  const workbook = XLSX.read(fileBuffer, { type: "array" });
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+  const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, string>[];
+
+  const newWords: Array<{ id: string; en: string; pt: string; category?: string }> = [];
+  let importedCount = 0;
+
+  for (const row of jsonData) {
+    // Support multiple column name variations (with and without accents, uppercase/lowercase)
+    const category = (
+      row.Categoria || 
+      row.CATEGORIA || 
+      row.category || 
+      row.Category
+    )?.trim();
+
+    // Get potential values for English and Portuguese columns
+    const potentialEn = (
+      row.Inglês || 
+      row.INGLÊS || 
+      row.INGLES || 
+      row.en || 
+      row.En ||
+      row.English
+    )?.trim();
+
+    const potentialPt = (
+      row.Português || 
+      row.PORTUGUÊS || 
+      row.PORTUGUES || 
+      row.pt || 
+      row.Pt ||
+      row.Portugues
+    )?.trim();
+
+    // If both values are present, use them as-is
+    let en = potentialEn;
+    let pt = potentialPt;
+
+    // If one is missing, try to detect based on the other value
+    if (!en && pt) {
+      en = pt;
+      pt = "";
+    } else if (en && !pt) {
+      pt = en;
+      en = "";
+    }
+
+    if (!en || !pt) continue;
+
+    const normalizedEn = normalizeWordValue(en);
+    const normalizedPt = normalizeWordValue(pt);
+
+    const alreadyExists = existingWords.some(
+      (word) =>
+        normalizeWordValue(word.en) === normalizedEn && normalizeWordValue(word.pt) === normalizedPt,
+    );
+
+    if (alreadyExists) continue;
+
+    newWords.push({
+      id: `shared-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      en,
+      pt,
+      category: category || undefined,
+    });
+
+    importedCount++;
+  }
+
+  if (newWords.length === 0) {
+    return { ok: false, reason: "no_new_words", imported: 0, words: existingWords };
+  }
+
+  const nextWords = [...existingWords, ...newWords];
+  await fs.writeFile(wordsFilePath, `${JSON.stringify(nextWords, null, 2)}\n`, "utf-8");
+
+  return { ok: true, imported: importedCount, words: nextWords };
 }
 
 export default {
@@ -137,6 +245,72 @@ export default {
 
         const result = await removeWordFromSharedBase(payload.id);
         return Response.json({ ok: true, words: result.words }, { status: 200 });
+      }
+
+      if (url.pathname === "/api/words" && request.method === "PUT") {
+        const payload = (await request.json().catch(() => null)) as {
+          id?: string;
+          category?: string;
+        } | null;
+
+        if (!payload?.id?.trim()) {
+          return Response.json(
+            { ok: false, message: "Informe o identificador da palavra." },
+            { status: 400 },
+          );
+        }
+
+        const result = await updateWordInSharedBase(payload.id, payload.category);
+
+        if (!result.ok) {
+          return Response.json(
+            { ok: false, message: "Palavra não encontrada." },
+            { status: 404 },
+          );
+        }
+
+        return Response.json({ ok: true, words: result.words }, { status: 200 });
+      }
+
+      if (url.pathname === "/api/words/import" && request.method === "POST") {
+        try {
+          const formData = await request.formData();
+          const file = formData.get("file") as File | null;
+
+          if (!file) {
+            return Response.json(
+              { ok: false, message: "Nenhum arquivo enviado." },
+              { status: 400 },
+            );
+          }
+
+          const arrayBuffer = await file.arrayBuffer();
+          const result = await importWordsFromExcel(arrayBuffer);
+
+          if (!result.ok) {
+            if (result.reason === "no_new_words") {
+              return Response.json(
+                { ok: false, message: "Nenhuma palavra nova foi importada (todas já existem)." },
+                { status: 409 },
+              );
+            }
+            return Response.json(
+              { ok: false, message: "Erro ao importar palavras." },
+              { status: 500 },
+            );
+          }
+
+          return Response.json(
+            { ok: true, imported: result.imported, words: result.words },
+            { status: 200 },
+          );
+        } catch (error) {
+          console.error("Import error:", error);
+          return Response.json(
+            { ok: false, message: "Erro ao processar arquivo Excel." },
+            { status: 500 },
+          );
+        }
       }
 
       const handler = await getServerEntry();

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useVocabularyMode, useWords, uniqueCategories, wordCategory, type VocabularyMode } from "@/lib/words-store";
 import { useUser } from "@/lib/user-store";
 
@@ -138,15 +139,21 @@ function PageSizeSelector({
 }
 
 function WordManager({ user }: { user: string }) {
-  const { words, add, remove } = useWords();
+  const { words, add, remove, updateCategory } = useWords();
   const [en, setEn] = useState("");
   const [pt, setPt] = useState("");
   const [category, setCategory] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+  const [editingWordId, setEditingWordId] = useState<string | null>(null);
+  const [newCategoryForWord, setNewCategoryForWord] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [categoryFilter, setCategoryFilter] = useState<string>("");
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importing, setImporting] = useState(false);
 
   const existingCategories = useMemo(() => uniqueCategories(words), [words]);
 
@@ -171,8 +178,14 @@ function WordManager({ user }: { user: string }) {
 
     const cleanEn = en.trim();
     const cleanPt = pt.trim();
-    const cleanCategory = category.trim();
+    let cleanCategory = category.trim();
+    
     if (!cleanEn || !cleanPt) return;
+
+    // If creating a new category, use that instead
+    if (showNewCategoryInput && newCategory.trim()) {
+      cleanCategory = newCategory.trim();
+    }
 
     const added = await add(cleanEn, cleanPt, cleanCategory);
     if (!added) {
@@ -186,7 +199,80 @@ function WordManager({ user }: { user: string }) {
     setEn("");
     setPt("");
     setCategory("");
+    setNewCategory("");
+    setShowNewCategoryInput(false);
     setPage(1);
+  }
+
+  function handleCategoryChange(value: string) {
+    if (value === "__new__") {
+      setShowNewCategoryInput(true);
+      setCategory("");
+    } else {
+      setCategory(value);
+      setShowNewCategoryInput(false);
+    }
+    clearFeedback();
+  }
+
+  function handleWordCategoryChange(wordId: string, value: string) {
+    if (value === "__new__") {
+      setEditingWordId(wordId);
+      setNewCategoryForWord("");
+    } else {
+      void updateCategory(wordId, value || undefined);
+    }
+  }
+
+  function handleSaveNewCategoryForWord() {
+    if (editingWordId && newCategoryForWord.trim()) {
+      void updateCategory(editingWordId, newCategoryForWord.trim());
+      setEditingWordId(null);
+      setNewCategoryForWord("");
+    }
+  }
+
+  function handleCancelNewCategoryForWord() {
+    setEditingWordId(null);
+    setNewCategoryForWord("");
+  }
+
+  async function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setImportFile(file);
+    setImporting(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/words/import", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: "Erro ao importar arquivo." }));
+        throw new Error(errorData.message || "Erro ao importar arquivo.");
+      }
+
+      const data = await response.json();
+      setSuccess(`Importado com sucesso! ${data.imported || 0} palavras adicionadas.`);
+      setImportFile(null);
+      
+      // Refresh words list
+      window.dispatchEvent(new Event("vocab-words-changed"));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao importar arquivo.");
+    } finally {
+      setImporting(false);
+      // Reset file input
+      e.target.value = "";
+    }
   }
 
   function clearFeedback() {
@@ -237,21 +323,49 @@ function WordManager({ user }: { user: string }) {
 
               <div className="space-y-2">
                 <Label htmlFor="category">Categoria (tópico)</Label>
-                <Input
-                  id="category"
-                  list="category-suggestions"
-                  value={category}
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                    clearFeedback();
-                  }}
-                  placeholder="Ex.: Cores, Animais, Itens da cozinha"
-                />
-                <datalist id="category-suggestions">
-                  {existingCategories.map((c) => (
-                    <option key={c} value={c} />
-                  ))}
-                </datalist>
+                {!showNewCategoryInput ? (
+                  <Select value={category} onValueChange={handleCategoryChange}>
+                    <SelectTrigger id="category">
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Sem categoria</SelectItem>
+                      {existingCategories.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          {c}
+                        </SelectItem>
+                      ))}
+                      <SelectItem value="__new__" className="font-semibold text-primary">
+                        + Criar nova categoria
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <div className="space-y-2">
+                    <Input
+                      id="new-category"
+                      value={newCategory}
+                      onChange={(e) => {
+                        setNewCategory(e.target.value);
+                        clearFeedback();
+                      }}
+                      placeholder="Nome da nova categoria"
+                      autoFocus
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setShowNewCategoryInput(false);
+                        setNewCategory("");
+                        clearFeedback();
+                      }}
+                    >
+                      Cancelar
+                    </Button>
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground">
                   Opcional. Palavras sem categoria ficam em "Sem categoria".
                 </p>
@@ -273,6 +387,30 @@ function WordManager({ user }: { user: string }) {
                 Adicionar
               </Button>
             </form>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Importar palavras</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="import-file">Arquivo Excel (.xlsx)</Label>
+              <Input
+                id="import-file"
+                type="file"
+                accept=".xlsx,.xls"
+                onChange={handleImportFile}
+                disabled={importing}
+              />
+              <p className="text-xs text-muted-foreground">
+                O arquivo deve conter 3 colunas: Categoria, Inglês, Português
+              </p>
+            </div>
+            {importing && (
+              <p className="text-sm text-muted-foreground">Importando...</p>
+            )}
           </CardContent>
         </Card>
 
@@ -337,22 +475,79 @@ function WordManager({ user }: { user: string }) {
                 <ul className="divide-y">
                   {visibleWords.map((w) => (
                     <li key={w.id} className="flex items-center justify-between py-2 gap-2">
-                      <span className="text-sm">
-                        <strong>{w.en}</strong>
-                        <span className="text-muted-foreground"> — {w.pt}</span>
-                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
-                          {wordCategory(w)}
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <span className="text-sm">
+                          <strong>{w.en}</strong>
+                          <span className="text-muted-foreground"> — {w.pt}</span>
                         </span>
-                      </span>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          void remove(w.id);
-                        }}
-                      >
-                        Remover
-                      </Button>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {editingWordId === w.id ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              className="w-[120px] h-7 text-xs"
+                              value={newCategoryForWord}
+                              onChange={(e) => setNewCategoryForWord(e.target.value)}
+                              placeholder="Nova categoria"
+                              autoFocus
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  handleSaveNewCategoryForWord();
+                                } else if (e.key === "Escape") {
+                                  handleCancelNewCategoryForWord();
+                                }
+                              }}
+                            />
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-7 px-2"
+                              onClick={handleSaveNewCategoryForWord}
+                            >
+                              ✓
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-7 px-2"
+                              onClick={handleCancelNewCategoryForWord}
+                            >
+                              ✕
+                            </Button>
+                          </div>
+                        ) : (
+                          <Select
+                            value={w.category || ""}
+                            onValueChange={(value) => {
+                              handleWordCategoryChange(w.id, value);
+                            }}
+                          >
+                            <SelectTrigger className="w-[140px] h-7 text-xs">
+                              <SelectValue placeholder="Categoria" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="">Sem categoria</SelectItem>
+                              {existingCategories.map((c) => (
+                                <SelectItem key={c} value={c}>
+                                  {c}
+                                </SelectItem>
+                              ))}
+                              <SelectItem value="__new__" className="font-semibold text-primary">
+                                + Nova
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            void remove(w.id);
+                          }}
+                        >
+                          Remover
+                        </Button>
+                      </div>
                     </li>
                   ))}
                 </ul>

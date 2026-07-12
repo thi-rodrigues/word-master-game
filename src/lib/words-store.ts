@@ -168,6 +168,43 @@ export function useWords() {
       writeCustomWords(nextWords);
       return true;
     },
+    async updateCategory(id: string, category?: string) {
+      const currentWords = readCustomWords();
+      const wordIndex = currentWords.findIndex((w) => w.id === id);
+      
+      if (wordIndex === -1) {
+        return false;
+      }
+
+      const updatedWord: Word = {
+        ...currentWords[wordIndex],
+        category: category?.trim() || undefined,
+      };
+
+      const nextWords = [...currentWords];
+      nextWords[wordIndex] = updatedWord;
+
+      try {
+        const response = await fetch("/api/words", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedWord),
+        });
+
+        if (response.ok) {
+          const payload = (await response.json()) as { words?: Word[] };
+          writeCustomWords(payload.words ?? nextWords);
+          return true;
+        }
+      } catch {
+        // Falls back to local persistence if the server endpoint is unavailable.
+      }
+
+      writeCustomWords(nextWords);
+      return true;
+    },
   };
 }
 

@@ -180,6 +180,8 @@ function Quiz() {
       wrong: score.wrong,
       total: queue.length,
       durationSeconds: elapsedSeconds,
+      startedAt: startedAt ?? Date.now(),
+      finishedAt: Date.now(),
     });
   }, [
     finished,
@@ -191,6 +193,7 @@ function Quiz() {
     score.wrong,
     queue.length,
     elapsedSeconds,
+    startedAt,
   ]);
 
   const current = queue[idx];
