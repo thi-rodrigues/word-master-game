@@ -104,11 +104,12 @@ export function useWords() {
 
   return {
     words,
-    async add(en: string, pt: string) {
-      const nextWord = {
+    async add(en: string, pt: string, category?: string) {
+      const nextWord: Word = {
         id: crypto.randomUUID(),
         en: en.trim(),
         pt: pt.trim(),
+        category: category?.trim() || undefined,
       };
       const exists = readCustomWords().some(
         (word) =>
