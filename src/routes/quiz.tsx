@@ -268,7 +268,7 @@ function Quiz() {
   }
 
   function restart() {
-    setQueue(shuffle(filteredWords));
+    setQueue(shuffle(activeWords));
     setIdx(0);
     setAnswer("");
     setResult(null);
