@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useVocabularyMode, useWords, type VocabularyMode } from "@/lib/words-store";
+import { useVocabularyMode, useWords, uniqueCategories, wordCategory, type VocabularyMode } from "@/lib/words-store";
 import { useUser } from "@/lib/user-store";
 
 export const Route = createFileRoute("/")({
