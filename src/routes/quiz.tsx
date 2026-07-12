@@ -52,11 +52,11 @@ function Quiz() {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const selectedCategories = useMemo(
+  const selectedCategories = useMemo<string[]>(
     () =>
-      (categories ?? "")
+      String(categories ?? "")
         .split(",")
-        .map((c) => c.trim())
+        .map((c: string) => c.trim())
         .filter(Boolean),
     [categories],
   );
