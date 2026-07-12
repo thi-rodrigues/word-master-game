@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useVocabularyMode, useWords, type VocabularyMode } from "@/lib/words-store";
+import { useVocabularyMode, useWords, uniqueCategories, wordCategory, type VocabularyMode } from "@/lib/words-store";
 import { useUser } from "@/lib/user-store";
 
 export const Route = createFileRoute("/")({
@@ -141,12 +141,21 @@ function WordManager({ user }: { user: string }) {
   const { words, add, remove } = useWords();
   const [en, setEn] = useState("");
   const [pt, setPt] = useState("");
+  const [category, setCategory] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
+  const [categoryFilter, setCategoryFilter] = useState<string>("");
 
-  const totalPages = Math.max(1, Math.ceil(words.length / pageSize));
+  const existingCategories = useMemo(() => uniqueCategories(words), [words]);
+
+  const filteredWords = useMemo(() => {
+    if (!categoryFilter) return words;
+    return words.filter((w) => wordCategory(w) === categoryFilter);
+  }, [words, categoryFilter]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredWords.length / pageSize));
 
   useEffect(() => {
     setPage((current) => Math.min(current, totalPages));
@@ -154,17 +163,18 @@ function WordManager({ user }: { user: string }) {
 
   const visibleWords = useMemo(() => {
     const from = (page - 1) * pageSize;
-    return words.slice(from, from + pageSize);
-  }, [page, pageSize, words]);
+    return filteredWords.slice(from, from + pageSize);
+  }, [page, pageSize, filteredWords]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
 
     const cleanEn = en.trim();
     const cleanPt = pt.trim();
+    const cleanCategory = category.trim();
     if (!cleanEn || !cleanPt) return;
 
-    const added = await add(cleanEn, cleanPt);
+    const added = await add(cleanEn, cleanPt, cleanCategory);
     if (!added) {
       setSuccess("");
       setError("Essa palavra já está cadastrada.");
@@ -175,7 +185,13 @@ function WordManager({ user }: { user: string }) {
     setSuccess("Palavra adicionada com sucesso.");
     setEn("");
     setPt("");
+    setCategory("");
     setPage(1);
+  }
+
+  function clearFeedback() {
+    if (error) setError("");
+    if (success) setSuccess("");
   }
 
   return (
@@ -200,8 +216,7 @@ function WordManager({ user }: { user: string }) {
                     value={en}
                     onChange={(e) => {
                       setEn(e.target.value);
-                      if (error) setError("");
-                      if (success) setSuccess("");
+                      clearFeedback();
                     }}
                     placeholder="apple"
                   />
@@ -213,12 +228,33 @@ function WordManager({ user }: { user: string }) {
                     value={pt}
                     onChange={(e) => {
                       setPt(e.target.value);
-                      if (error) setError("");
-                      if (success) setSuccess("");
+                      clearFeedback();
                     }}
                     placeholder="maçã"
                   />
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="category">Categoria (tópico)</Label>
+                <Input
+                  id="category"
+                  list="category-suggestions"
+                  value={category}
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                    clearFeedback();
+                  }}
+                  placeholder="Ex.: Cores, Animais, Itens da cozinha"
+                />
+                <datalist id="category-suggestions">
+                  {existingCategories.map((c) => (
+                    <option key={c} value={c} />
+                  ))}
+                </datalist>
+                <p className="text-xs text-muted-foreground">
+                  Opcional. Palavras sem categoria ficam em "Sem categoria".
+                </p>
               </div>
 
               {error ? (
@@ -245,6 +281,43 @@ function WordManager({ user }: { user: string }) {
             <CardTitle>Palavras cadastradas ({words.length})</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            {existingCategories.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2 text-sm">
+                <span className="text-muted-foreground">Filtrar:</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCategoryFilter("");
+                    setPage(1);
+                  }}
+                  className={`rounded-full border px-3 py-1 text-xs transition ${
+                    categoryFilter === ""
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-background hover:bg-muted"
+                  }`}
+                >
+                  Todas
+                </button>
+                {existingCategories.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => {
+                      setCategoryFilter(cat);
+                      setPage(1);
+                    }}
+                    className={`rounded-full border px-3 py-1 text-xs transition ${
+                      categoryFilter === cat
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <PageSizeSelector
               pageSize={pageSize}
               onChange={(nextSize) => {
@@ -253,9 +326,11 @@ function WordManager({ user }: { user: string }) {
               }}
             />
 
-            {words.length === 0 ? (
+            {filteredWords.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                Nenhuma palavra ainda. Adicione a primeira acima.
+                {words.length === 0
+                  ? "Nenhuma palavra ainda. Adicione a primeira acima."
+                  : "Nenhuma palavra nesta categoria."}
               </p>
             ) : (
               <>
@@ -265,6 +340,9 @@ function WordManager({ user }: { user: string }) {
                       <span className="text-sm">
                         <strong>{w.en}</strong>
                         <span className="text-muted-foreground"> — {w.pt}</span>
+                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+                          {wordCategory(w)}
+                        </span>
                       </span>
                       <Button
                         size="sm"

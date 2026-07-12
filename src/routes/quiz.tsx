@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { clearQuizSnapshot, readQuizSnapshot, saveQuizSnapshot } from "@/lib/quiz-state";
-import { useVocabularyMode, useWordsByMode, type Word } from "@/lib/words-store";
+import { useVocabularyMode, useWordsByMode, wordCategory, type Word } from "@/lib/words-store";
 import { addScore, useUser } from "@/lib/user-store";
 
 const searchSchema = z.object({
   lang: z.enum(["pt", "en"]).default("pt"),
+  categories: z.string().optional(),
 });
 
 export const Route = createFileRoute("/quiz")({
@@ -45,11 +46,28 @@ function formatDuration(seconds: number) {
 }
 
 function Quiz() {
-  const { lang } = Route.useSearch();
+  const { lang, categories } = Route.useSearch();
   const { mode } = useVocabularyMode();
   const { words } = useWordsByMode(mode);
   const { user } = useUser();
   const navigate = useNavigate();
+
+  const selectedCategories = useMemo<string[]>(
+    () =>
+      String(categories ?? "")
+        .split(",")
+        .map((c: string) => c.trim())
+        .filter(Boolean),
+    [categories],
+  );
+
+  const filteredWords = useMemo(() => {
+    if (words === null) return null;
+    if (selectedCategories.length === 0) return words;
+    const set = new Set(selectedCategories);
+    return words.filter((w) => set.has(wordCategory(w)));
+  }, [words, selectedCategories]);
+  const categoriesKey = selectedCategories.slice().sort().join(",");
 
   const [queue, setQueue] = useState<Word[]>([]);
   const [idx, setIdx] = useState(0);
@@ -63,15 +81,16 @@ function Quiz() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
 
   useEffect(() => {
-    if (words === null) return;
+    if (filteredWords === null) return;
 
     const snapshot = readQuizSnapshot();
 
     if (
-      words.length > 0 &&
+      filteredWords.length > 0 &&
       snapshot &&
       snapshot.mode === mode &&
       snapshot.lang === lang &&
+      (snapshot.categoriesKey ?? "") === categoriesKey &&
       snapshot.queue.length > 0 &&
       !snapshot.finished
     ) {
@@ -88,7 +107,7 @@ function Quiz() {
       return;
     }
 
-    setQueue(shuffle(words));
+    setQueue(shuffle(filteredWords));
     setIdx(0);
     setAnswer("");
     setResult(null);
@@ -98,7 +117,7 @@ function Quiz() {
     setFinished(false);
     setSaved(false);
     setStartedAt(Date.now());
-  }, [words, lang, mode]);
+  }, [filteredWords, lang, mode, categoriesKey]);
 
   useEffect(() => {
     if (paused || finished) return;
@@ -114,6 +133,7 @@ function Quiz() {
     saveQuizSnapshot({
       mode,
       lang,
+      categoriesKey,
       queue,
       idx,
       answer,
@@ -128,6 +148,7 @@ function Quiz() {
   }, [
     mode,
     lang,
+    categoriesKey,
     queue,
     idx,
     answer,
@@ -191,13 +212,21 @@ function Quiz() {
     };
   }, [current, lang]);
 
-  if (words === null) {
+  if (words === null || filteredWords === null) {
     return <Loading>Carregando vocabulário...</Loading>;
   }
 
   if (words.length === 0) {
     return <Empty>Nenhuma palavra cadastrada. Volte e cadastre algumas primeiro.</Empty>;
   }
+
+  if (filteredWords.length === 0) {
+    return (
+      <Empty>Nenhuma palavra encontrada para as categorias selecionadas.</Empty>
+    );
+  }
+
+  const activeWords: Word[] = filteredWords;
 
   function submit(e: FormEvent) {
     e.preventDefault();
@@ -239,7 +268,7 @@ function Quiz() {
   }
 
   function restart() {
-    setQueue(shuffle(words));
+    setQueue(shuffle(activeWords));
     setIdx(0);
     setAnswer("");
     setResult(null);

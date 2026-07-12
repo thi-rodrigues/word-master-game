@@ -4,7 +4,21 @@ export type Word = {
   id: string;
   en: string;
   pt: string;
+  category?: string;
 };
+
+export const UNCATEGORIZED = "Sem categoria";
+
+export function wordCategory(word: Word): string {
+  const c = word.category?.trim();
+  return c && c.length > 0 ? c : UNCATEGORIZED;
+}
+
+export function uniqueCategories(words: Word[]): string[] {
+  const set = new Set<string>();
+  for (const w of words) set.add(wordCategory(w));
+  return Array.from(set).sort((a, b) => a.localeCompare(b, "pt"));
+}
 
 export type VocabularyMode = "shared" | "custom";
 
@@ -90,11 +104,12 @@ export function useWords() {
 
   return {
     words,
-    async add(en: string, pt: string) {
-      const nextWord = {
+    async add(en: string, pt: string, category?: string) {
+      const nextWord: Word = {
         id: crypto.randomUUID(),
         en: en.trim(),
         pt: pt.trim(),
+        category: category?.trim() || undefined,
       };
       const exists = readCustomWords().some(
         (word) =>
