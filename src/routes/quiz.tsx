@@ -46,11 +46,28 @@ function formatDuration(seconds: number) {
 }
 
 function Quiz() {
-  const { lang } = Route.useSearch();
+  const { lang, categories } = Route.useSearch();
   const { mode } = useVocabularyMode();
   const { words } = useWordsByMode(mode);
   const { user } = useUser();
   const navigate = useNavigate();
+
+  const selectedCategories = useMemo(
+    () =>
+      (categories ?? "")
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean),
+    [categories],
+  );
+
+  const filteredWords = useMemo(() => {
+    if (words === null) return null;
+    if (selectedCategories.length === 0) return words;
+    const set = new Set(selectedCategories);
+    return words.filter((w) => set.has(wordCategory(w)));
+  }, [words, selectedCategories]);
+  const categoriesKey = selectedCategories.slice().sort().join(",");
 
   const [queue, setQueue] = useState<Word[]>([]);
   const [idx, setIdx] = useState(0);
