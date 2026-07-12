@@ -8,6 +8,7 @@ export type QuizResult = {
 export type QuizSnapshot = {
   mode: VocabularyMode;
   lang: "pt" | "en";
+  categoriesKey?: string;
   queue: Word[];
   idx: number;
   answer: string;
