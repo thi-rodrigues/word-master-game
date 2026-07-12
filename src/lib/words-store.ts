@@ -13,6 +13,14 @@ const CUSTOM_KEY = "vocab-words-v1";
 const MODE_KEY = "vocab-mode-v1";
 const SHARED_WORDS = sharedBaseWords as Word[];
 
+function normalizeWordValue(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 function readCustomWords(): Word[] {
   if (typeof window === "undefined") return [];
   try {
@@ -79,11 +87,24 @@ export function useWords() {
   return {
     words,
     add(en: string, pt: string) {
-      const next = [
-        ...readCustomWords(),
-        { id: crypto.randomUUID(), en: en.trim(), pt: pt.trim() },
-      ];
+      const nextWord = {
+        id: crypto.randomUUID(),
+        en: en.trim(),
+        pt: pt.trim(),
+      };
+      const exists = readCustomWords().some(
+        (word) =>
+          normalizeWordValue(word.en) === normalizeWordValue(nextWord.en) &&
+          normalizeWordValue(word.pt) === normalizeWordValue(nextWord.pt),
+      );
+
+      if (exists) {
+        return false;
+      }
+
+      const next = [...readCustomWords(), nextWord];
       writeCustomWords(next);
+      return true;
     },
     remove(id: string) {
       writeCustomWords(readCustomWords().filter((w) => w.id !== id));
@@ -92,7 +113,7 @@ export function useWords() {
 }
 
 export function useWordsByMode(mode: VocabularyMode) {
-  const [words, setWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<Word[] | null>(null);
 
   useEffect(() => {
     let ignore = false;

@@ -18,40 +18,12 @@ function formatDuration(seconds: number) {
 function Ranking() {
   const { scores } = useScores();
 
-  const agg = new Map<
-    string,
-    { user: string; right: number; total: number; games: number; bestDuration: number | null }
-  >();
-
-  for (const s of scores) {
-    const cur = agg.get(s.user) ?? {
-      user: s.user,
-      right: 0,
-      total: 0,
-      games: 0,
-      bestDuration: null,
-    };
-
-    cur.right += s.right;
-    cur.total += s.total;
-    cur.games += 1;
-    cur.bestDuration =
-      cur.bestDuration === null || s.durationSeconds < cur.bestDuration
-        ? s.durationSeconds
-        : cur.bestDuration;
-    agg.set(s.user, cur);
-  }
-
-  const rows = [...agg.values()]
-    .map((r) => ({
-      ...r,
-      pct: r.total ? Math.round((r.right / r.total) * 100) : 0,
-    }))
-    .sort(
-      (a, b) =>
-        b.pct - a.pct ||
-        (a.bestDuration ?? Number.POSITIVE_INFINITY) - (b.bestDuration ?? Number.POSITIVE_INFINITY),
-    );
+  const rows = [...scores]
+    .sort((a, b) => b.at - a.at)
+    .map((score) => ({
+      ...score,
+      pct: score.total ? Math.round((score.right / score.total) * 100) : 0,
+    }));
 
   return (
     <div className="min-h-screen bg-background py-10 px-4 pb-28">
@@ -62,7 +34,7 @@ function Ranking() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Jogadores</CardTitle>
+            <CardTitle>Jogadas</CardTitle>
           </CardHeader>
           <CardContent>
             {rows.length === 0 ? (
@@ -74,28 +46,26 @@ function Ranking() {
               </div>
             ) : (
               <ol className="divide-y">
-                {rows.map((r, i) => (
-                  <li key={r.user} className="flex items-center justify-between py-3 gap-4">
+                {rows.map((score, i) => (
+                  <li key={score.id} className="flex items-center justify-between py-3 gap-4">
                     <div className="flex items-center gap-3">
                       <span className="text-lg font-bold w-6 text-center text-muted-foreground">
                         {i + 1}
                       </span>
                       <div>
-                        <p className="font-medium">{r.user}</p>
+                        <p className="font-medium">{score.user}</p>
                         <p className="text-xs text-muted-foreground">
-                          {r.games} {r.games === 1 ? "partida" : "partidas"}
+                          {score.lang === "pt" ? "Português" : "Inglês"} ·{" "}
+                          {formatDuration(score.durationSeconds)}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">{r.pct}%</p>
+                      <p className="font-bold">{score.pct}%</p>
                       <p className="text-xs text-muted-foreground">
-                        {r.right}/{r.total} acertos
+                        {score.right}/{score.total} acertos
                       </p>
-                      <p className="text-xs text-muted-foreground">
-                        Melhor tempo:{" "}
-                        {r.bestDuration === null ? "--:--" : formatDuration(r.bestDuration)}
-                      </p>
+                      <p className="text-xs text-muted-foreground">{score.wrong} erros</p>
                     </div>
                   </li>
                 ))}

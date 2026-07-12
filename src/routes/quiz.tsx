@@ -63,9 +63,18 @@ function Quiz() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
 
   useEffect(() => {
+    if (words === null) return;
+
     const snapshot = readQuizSnapshot();
 
-    if (snapshot && snapshot.mode === mode && snapshot.lang === lang && !snapshot.finished) {
+    if (
+      words.length > 0 &&
+      snapshot &&
+      snapshot.mode === mode &&
+      snapshot.lang === lang &&
+      snapshot.queue.length > 0 &&
+      !snapshot.finished
+    ) {
       setQueue(snapshot.queue);
       setIdx(snapshot.idx);
       setAnswer(snapshot.answer);
@@ -100,6 +109,8 @@ function Quiz() {
   }, [paused, finished]);
 
   useEffect(() => {
+    if (queue.length === 0) return;
+
     saveQuizSnapshot({
       mode,
       lang,
@@ -180,13 +191,23 @@ function Quiz() {
     };
   }, [current, lang]);
 
+  if (words === null) {
+    return <Loading>Carregando vocabulário...</Loading>;
+  }
+
   if (words.length === 0) {
     return <Empty>Nenhuma palavra cadastrada. Volte e cadastre algumas primeiro.</Empty>;
   }
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    if (!current || result || paused || finished) return;
+
+    if (result) {
+      next();
+      return;
+    }
+
+    if (!current || paused || finished) return;
     if (!answer.trim()) return;
 
     const correct = normalize(answer) === normalize(expected);
@@ -297,7 +318,6 @@ function Quiz() {
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
                         placeholder={answerLabel}
-                        disabled={!!result}
                       />
                       {!result ? (
                         <div className="grid gap-2 sm:grid-cols-2">
@@ -314,7 +334,7 @@ function Quiz() {
                           </Button>
                         </div>
                       ) : (
-                        <Button type="button" className="w-full" onClick={next}>
+                        <Button type="submit" className="w-full">
                           Próxima
                         </Button>
                       )}
@@ -358,6 +378,18 @@ function Quiz() {
           </CardContent>
         </Card>
       </div>
+    </div>
+  );
+}
+
+function Loading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <Card className="max-w-md w-full">
+        <CardContent className="p-6 text-center space-y-4">
+          <p>{children}</p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

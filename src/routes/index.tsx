@@ -97,11 +97,22 @@ function WordManager({ user }: { user: string }) {
   const { words, add, remove } = useWords();
   const [en, setEn] = useState("");
   const [pt, setPt] = useState("");
+  const [error, setError] = useState("");
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!en.trim() || !pt.trim()) return;
-    add(en, pt);
+
+    const cleanEn = en.trim();
+    const cleanPt = pt.trim();
+    if (!cleanEn || !cleanPt) return;
+
+    const added = add(cleanEn, cleanPt);
+    if (!added) {
+      setError("Essa palavra já está cadastrada.");
+      return;
+    }
+
+    setError("");
     setEn("");
     setPt("");
   }
@@ -126,7 +137,10 @@ function WordManager({ user }: { user: string }) {
                   <Input
                     id="en"
                     value={en}
-                    onChange={(e) => setEn(e.target.value)}
+                    onChange={(e) => {
+                      setEn(e.target.value);
+                      if (error) setError("");
+                    }}
                     placeholder="apple"
                   />
                 </div>
@@ -135,11 +149,21 @@ function WordManager({ user }: { user: string }) {
                   <Input
                     id="pt"
                     value={pt}
-                    onChange={(e) => setPt(e.target.value)}
+                    onChange={(e) => {
+                      setPt(e.target.value);
+                      if (error) setError("");
+                    }}
                     placeholder="maçã"
                   />
                 </div>
               </div>
+
+              {error ? (
+                <p className="text-sm text-destructive" aria-live="polite">
+                  {error}
+                </p>
+              ) : null}
+
               <Button type="submit" className="w-full">
                 Adicionar
               </Button>

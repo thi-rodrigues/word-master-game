@@ -25,6 +25,14 @@ function Play() {
     );
   }
 
+  if (words === null) {
+    return (
+      <Centered>
+        <p className="mb-4">Carregando vocabulário...</p>
+      </Centered>
+    );
+  }
+
   if (words.length === 0) {
     return (
       <Centered>
