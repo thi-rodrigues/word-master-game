@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const { user, setUser } = useUser();
+  const { user, setUser, isReady } = useUser();
   const { setMode } = useVocabularyMode();
   const [name, setName] = useState("");
   const [mode, setSelectedMode] = useState<VocabularyMode>("shared");
@@ -32,7 +32,22 @@ function Home() {
     if (!name.trim()) return;
     setUser(name);
     setMode(mode);
-    navigate({ to: "/play" });
+
+    if (mode === "shared") {
+      navigate({ to: "/play" });
+    }
+  }
+
+  if (!isReady) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="p-6 text-center text-sm text-muted-foreground">
+            Carregando...
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (!user) {
@@ -99,14 +114,14 @@ function WordManager({ user }: { user: string }) {
   const [pt, setPt] = useState("");
   const [error, setError] = useState("");
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
 
     const cleanEn = en.trim();
     const cleanPt = pt.trim();
     if (!cleanEn || !cleanPt) return;
 
-    const added = add(cleanEn, cleanPt);
+    const added = await add(cleanEn, cleanPt);
     if (!added) {
       setError("Essa palavra já está cadastrada.");
       return;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import sharedBaseWords from "../../public/words-base.json";
 
 export type Word = {
   id: string;
@@ -11,7 +10,6 @@ export type VocabularyMode = "shared" | "custom";
 
 const CUSTOM_KEY = "vocab-words-v1";
 const MODE_KEY = "vocab-mode-v1";
-const SHARED_WORDS = sharedBaseWords as Word[];
 
 function normalizeWordValue(value: string) {
   return value
@@ -44,7 +42,13 @@ function readMode(): VocabularyMode {
 }
 
 export async function getSharedWords(): Promise<Word[]> {
-  return SHARED_WORDS;
+  try {
+    const response = await fetch("/words-base.json", { cache: "no-store" });
+    if (!response.ok) return [];
+    return (await response.json()) as Word[];
+  } catch {
+    return [];
+  }
 }
 
 export function useVocabularyMode() {
@@ -71,7 +75,7 @@ export function useVocabularyMode() {
 }
 
 export function useWords() {
-  const [words, setWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<Word[]>(() => readCustomWords());
 
   useEffect(() => {
     setWords(readCustomWords());
@@ -86,7 +90,7 @@ export function useWords() {
 
   return {
     words,
-    add(en: string, pt: string) {
+    async add(en: string, pt: string) {
       const nextWord = {
         id: crypto.randomUUID(),
         en: en.trim(),
@@ -100,6 +104,25 @@ export function useWords() {
 
       if (exists) {
         return false;
+      }
+
+      try {
+        const response = await fetch("/api/words", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(nextWord),
+        });
+
+        if (response.ok) {
+          const payload = (await response.json()) as { words?: Word[] };
+          const next = payload.words ?? [...readCustomWords(), nextWord];
+          writeCustomWords(next);
+          return true;
+        }
+      } catch {
+        // Falls back to local persistence if the server endpoint is unavailable.
       }
 
       const next = [...readCustomWords(), nextWord];

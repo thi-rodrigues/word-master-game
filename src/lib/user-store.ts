@@ -30,10 +30,12 @@ function readScores(): Score[] {
 }
 
 export function useUser() {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(() => readUser());
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setUser(readUser());
+    setReady(true);
     const onChange = () => setUser(readUser());
     window.addEventListener("vocab-user-changed", onChange);
     window.addEventListener("storage", onChange);
@@ -45,6 +47,7 @@ export function useUser() {
 
   return {
     user,
+    isReady: ready,
     setUser(name: string) {
       window.localStorage.setItem(USER_KEY, name.trim());
       window.dispatchEvent(new Event("vocab-user-changed"));
@@ -57,7 +60,7 @@ export function useUser() {
 }
 
 export function useScores() {
-  const [scores, setScores] = useState<Score[]>([]);
+  const [scores, setScores] = useState<Score[]>(() => readScores());
 
   useEffect(() => {
     setScores(readScores());
