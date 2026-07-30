@@ -25,9 +25,15 @@ type Score = {
 export class AppComponent implements OnInit {
   view: 'home' | 'play' | 'quiz' | 'ranking' = 'home';
   user = '';
+  nameInput = '';
   sharedWords: Word[] = [];
   wordsLoaded = false;
   wordsLoadError = false;
+  en = '';
+  pt = '';
+  category = '';
+  filter = '';
+  message = '';
   selection: string[] = [];
   lang: 'pt' | 'en' = 'pt';
   queue: Word[] = [];
@@ -68,6 +74,12 @@ export class AppComponent implements OnInit {
     );
   }
 
+  get filteredWords() {
+    return this.filter
+      ? this.activeWords.filter(word => (word.category?.trim() || 'Sem categoria') === this.filter)
+      : this.activeWords;
+  }
+
   private read<T>(key: string, fallback: T): T {
     try {
       return JSON.parse(localStorage.getItem(key) || '') as T;
@@ -77,8 +89,8 @@ export class AppComponent implements OnInit {
   }
 
   register() {
-    if (!this.user.trim()) return;
-    this.user = this.user.trim();
+    if (!this.nameInput.trim()) return;
+    this.user = this.nameInput.trim();
     localStorage.setItem('vocab-user-v1', this.user);
     this.view = 'play';
   }
@@ -86,7 +98,45 @@ export class AppComponent implements OnInit {
   logout() {
     localStorage.removeItem('vocab-user-v1');
     this.user = '';
+    this.nameInput = '';
     this.view = 'home';
+  }
+
+  addWord() {
+    const en = this.en.trim();
+    const pt = this.pt.trim();
+    if (!en || !pt) return;
+    const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    if (this.sharedWords.some(word => normalize(word.en) === normalize(en) && normalize(word.pt) === normalize(pt))) {
+      this.message = 'Esta palavra ja esta cadastrada.';
+      return;
+    }
+    this.sharedWords = [...this.sharedWords, { id: crypto.randomUUID(), en, pt, category: this.category.trim() || undefined }];
+    this.en = '';
+    this.pt = '';
+    this.category = '';
+    this.message = 'Palavra adicionada para esta sessao.';
+  }
+
+  removeWord(id: string) {
+    this.sharedWords = this.sharedWords.filter(word => word.id !== id);
+  }
+
+  importWords(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    file.text()
+      .then(text => JSON.parse(text) as Word[])
+      .then(words => {
+        if (!Array.isArray(words) || words.some(word => !word.en || !word.pt)) throw new Error('Invalid vocabulary file.');
+        const existing = new Set(this.sharedWords.map(word => `${word.en.toLowerCase()}|${word.pt.toLowerCase()}`));
+        const additions = words.filter(word => !existing.has(`${word.en.toLowerCase()}|${word.pt.toLowerCase()}`));
+        this.sharedWords = [...this.sharedWords, ...additions.map(word => ({ ...word, id: word.id || crypto.randomUUID() }))];
+        this.message = `${additions.length} palavra(s) importada(s) para esta sessao.`;
+      })
+      .catch(() => (this.message = 'Arquivo invalido. Use um JSON com os campos en e pt.'));
+    input.value = '';
   }
 
   toggleCategory(category: string) {

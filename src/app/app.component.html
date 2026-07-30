@@ -8,14 +8,31 @@
 
   <section *ngIf="!user" class="card auth">
     <h1>Bem-vindo!</h1>
-    <label>Seu nome<input [(ngModel)]="user" placeholder="Digite seu nome" /></label>
+    <label>Seu nome<input [(ngModel)]="nameInput" placeholder="Digite seu nome" /></label>
     <p>As palavras para treino sao carregadas do arquivo de vocabulario.</p>
-    <button class="primary wide" (click)="register()" [disabled]="!user.trim()">Comecar</button>
+    <button class="primary wide" (click)="register()" [disabled]="!nameInput.trim()">Comecar</button>
   </section>
 
-  <section *ngIf="user && view === 'home'" class="card centered">
-    <h1>Vocabulario</h1>
-    <p>O jogo utiliza as palavras do arquivo words-base.json.</p>
+  <section *ngIf="user && view === 'home'" class="page">
+    <header><h1>Vocabulario</h1><p>Palavras de base carregadas de words-base.json.</p></header>
+    <div class="card">
+      <h2>Cadastrar palavra</h2>
+      <div class="grid"><label>Ingles<input [(ngModel)]="en" placeholder="apple" /></label><label>Portugues<input [(ngModel)]="pt" placeholder="maca" /></label></div>
+      <label>Categoria<input [(ngModel)]="category" placeholder="Opcional" /></label>
+      <button class="primary wide" (click)="addWord()">Adicionar</button>
+      <p class="success" *ngIf="message">{{ message }}</p>
+    </div>
+    <div class="card">
+      <h2>Importar palavras</h2>
+      <p>Selecione um arquivo JSON com os campos <code>en</code> e <code>pt</code>.</p>
+      <input type="file" accept="application/json,.json" (change)="importWords($event)" />
+    </div>
+    <div class="card">
+      <h2>Palavras disponiveis ({{ activeWords.length }})</h2>
+      <div class="chips"><button [class.primary]="!filter" (click)="filter = ''">Todas</button><button *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
+      <p *ngIf="!filteredWords.length">Nenhuma palavra nesta categoria.</p>
+      <ul><li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category || 'Sem categoria' }})</small></span><button (click)="removeWord(word.id)">Remover</button></li></ul>
+    </div>
     <button class="primary wide" (click)="view = 'play'">Jogar</button>
   </section>
 
