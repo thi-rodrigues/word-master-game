@@ -1,44 +1,44 @@
 [
   {
     "id": "shared-003",
-    "en": "house",
-    "pt": "casa",
+    "en": "apart",
+    "pt": "separado",
     "category": "Casa"
   },
   {
     "id": "shared-004",
-    "en": "sun",
-    "pt": "sol",
+    "en": "as",
+    "pt": "como",
     "category": "Natureza"
   },
   {
     "id": "shared-005",
-    "en": "water",
-    "pt": "água",
+    "en": "ago",
+    "pt": "atrás",
     "category": "Natureza"
   },
   {
     "id": "shared-006",
-    "en": "friend",
-    "pt": "amigo",
+    "en": "be",
+    "pt": "ser/estar",
     "category": "Pessoas"
   },
   {
     "id": "shared-007",
-    "en": "school",
-    "pt": "escola",
+    "en": "better",
+    "pt": "melhor",
     "category": "Lugares"
   },
   {
     "id": "shared-008",
-    "en": "music",
-    "pt": "música",
+    "en": "breakdown",
+    "pt": "ruptura",
     "category": "Arte"
   },
   {
     "id": "shared-1783818027073",
-    "en": "test",
-    "pt": "teste",
+    "en": "each",
+    "pt": "cada",
     "category": "Sem categoria"
   },
   {
