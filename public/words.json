@@ -1,11 +1,5 @@
 [
   {
-    "id": "shared-003",
-    "en": "apart",
-    "pt": "separado",
-    "category": "Casa"
-  },
-  {
     "id": "shared-004",
     "en": "as",
     "pt": "como",
@@ -238,5 +232,10 @@
     "id": "eb2d0f7f-941b-4a4a-a1df-841ba71026ef",
     "en": "generation",
     "pt": "geração"
+  },
+  {
+    "id": "3eed2611-8dc1-41b5-b98d-18a755659756",
+    "en": "apart",
+    "pt": "separado / separada"
   }
 ]

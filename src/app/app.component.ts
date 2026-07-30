@@ -123,7 +123,13 @@ export class AppComponent implements OnInit {
   }
 
   removeWord(id: string) {
-    this.sharedWords = this.sharedWords.filter(word => word.id !== id);
+    fetch(`/api/words/${encodeURIComponent(id)}`, { method: 'DELETE' })
+      .then(async response => {
+        if (!response.ok) throw new Error('Unable to remove word.');
+        this.sharedWords = this.sharedWords.filter(word => word.id !== id);
+        this.message = 'Palavra removida de words.json.';
+      })
+      .catch(() => (this.message = 'Nao foi possivel remover. Verifique se a API esta em execucao.'));
   }
 
   importWords(event: Event) {

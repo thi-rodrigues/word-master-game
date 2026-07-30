@@ -21,7 +21,24 @@ function normalise(value) {
 }
 
 http.createServer(async (request, response) => {
-  if (request.method !== 'POST' || request.url !== '/api/words') {
+	if (request.method === 'DELETE' && request.url?.startsWith('/api/words/')) {
+		try {
+			const id = decodeURIComponent(request.url.slice('/api/words/'.length));
+			const saved = JSON.parse(await fs.readFile(wordsFile, 'utf8'));
+			const words = saved.filter(word => word.id !== id);
+			if (words.length === saved.length) {
+				send(response, 404, { message: 'Word not found.' });
+				return;
+			}
+			await fs.writeFile(wordsFile, `${JSON.stringify(words, null, 2)}\n`, 'utf8');
+			send(response, 200, { id });
+		} catch {
+			send(response, 400, { message: 'Unable to remove word.' });
+		}
+		return;
+	}
+
+	if (request.method !== 'POST' || request.url !== '/api/words') {
     send(response, 404, { message: 'Not found.' });
     return;
   }
