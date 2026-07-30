@@ -66,8 +66,9 @@
       <div *ngIf="!paused">
         <input [(ngModel)]="answer" (keyup.enter)="check()" [placeholder]="lang === 'pt' ? 'Escreva em portugues' : 'Escreva em ingles'" autofocus />
         <button class="primary wide" (click)="check()">{{ result ? 'Proxima' : 'Verificar' }}</button>
-        <button class="wide" *ngIf="!result" (click)="skip()">Pular palavra</button>
-        <p *ngIf="result" [class.success]="result.correct" [class.error]="!result.correct">{{ result.correct ? 'Correto!' : 'Resposta correta: ' + result.expected }}</p>
+        <button class="wide" *ngIf="!result" (click)="back()">Voltar</button>
+        <button class="wide" *ngIf="!result" (click)="skip()">Pular</button>
+        <p *ngIf="result" [class.success]="result.correct" [class.error]="!result.correct">{{ result.correct ? 'Correto! ' : 'Resposta correta: '  }}{{ result.expected }}</p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>
         <button (click)="togglePause()">Pausar</button>
         <button class="danger" (click)="complete()">Finalizar jogo</button>

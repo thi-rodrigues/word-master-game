@@ -219,9 +219,22 @@ export class AppComponent implements OnInit {
     if (!this.answer.trim() || !this.current || this.paused) return;
     const normalize = (value: string) =>
       value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    const correct = normalize(this.answer) === normalize(this.expected);
+
+    let expectedNormalized = normalize(this.expected);
+    let arr = expectedNormalized.split(' / ');
+
+    // const correct = normalize(this.answer) === normalize(this.expected);
+    const correct = arr.includes(normalize(this.answer));
     this.result = { correct, expected: this.expected };
     correct ? this.right++ : this.wrong++;
+  }
+
+  previous() {
+    if (this.idx > 0) {
+      this.idx--;
+      this.answer = '';
+      this.result = null;
+    }
   }
 
   next() {
@@ -229,6 +242,11 @@ export class AppComponent implements OnInit {
     this.answer = '';
     this.result = null;
     if (this.idx >= this.queue.length) this.complete();
+  }
+
+
+  back() {
+    this.previous();
   }
 
   skip() {
