@@ -98,5 +98,145 @@
     "id": "17b09326-ea3c-4366-8325-2b1a94ea0fd9",
     "en": "apples",
     "pt": "maças"
+  },
+  {
+    "id": "87a9fc24-9391-4404-9ca1-bd42dd20f609",
+    "en": "sasa",
+    "pt": "sasas"
+  },
+  {
+    "id": "56bcb754-91b1-4780-a63d-67dab709f89c",
+    "en": "other",
+    "pt": "outro"
+  },
+  {
+    "id": "d2527e05-3855-4568-8d90-af40de6866f2",
+    "en": "in",
+    "pt": "em"
+  },
+  {
+    "id": "bca8349c-e927-4602-975e-10be03ab0b75",
+    "en": "talk",
+    "pt": "outro"
+  },
+  {
+    "id": "4d2ad55e-9839-4c41-a102-3b8d3838509f",
+    "en": "so",
+    "pt": "tão"
+  },
+  {
+    "id": "b5a04558-e4a3-42ed-89e4-5ee484742b50",
+    "en": "get",
+    "pt": "ficar/conseguir"
+  },
+  {
+    "id": "082c1919-20d5-436b-aa45-b191c081e942",
+    "en": "maybe",
+    "pt": "talvez"
+  },
+  {
+    "id": "cdfd1f73-6962-4bd7-a6bc-3d20a1df37bf",
+    "en": "rising",
+    "pt": "aumentando"
+  },
+  {
+    "id": "fe75ae8a-6a74-4ebd-813c-1c18a6690cfb",
+    "en": "everywhere",
+    "pt": "em todo lugar"
+  },
+  {
+    "id": "cb00dea6-1dfb-4d23-993d-a5faa16055a2",
+    "en": "means",
+    "pt": "sentir"
+  },
+  {
+    "id": "67b37f67-facf-4bea-97ac-1b3b55fd6790",
+    "en": "single",
+    "pt": "solteiro / unico"
+  },
+  {
+    "id": "618fbb4b-68c3-4c13-8aca-13480ce3614e",
+    "en": "less",
+    "pt": "menos"
+  },
+  {
+    "id": "2e733ea3-1ee5-4dbf-a24b-4bc3b1a96784",
+    "en": "pressure",
+    "pt": "pressão"
+  },
+  {
+    "id": "b8f9b2d5-1d3d-4e55-9d15-763fb48c9fff",
+    "en": "seems",
+    "pt": "parece"
+  },
+  {
+    "id": "850f3cca-959e-49f1-9487-b666dac97032",
+    "en": "though",
+    "pt": "embora / como se"
+  },
+  {
+    "id": "15d4eba3-fee1-46b6-a14f-e40a1d9664a6",
+    "en": "puts",
+    "pt": "coloca"
+  },
+  {
+    "id": "4ebf1b51-ba6d-4457-adad-700e958534f6",
+    "en": "put",
+    "pt": "colocar"
+  },
+  {
+    "id": "060b09ae-e7c9-4e64-b567-7e799167779b",
+    "en": "too",
+    "pt": "demais"
+  },
+  {
+    "id": "7aea7fa3-232c-4763-92ac-8acd43a28cfc",
+    "en": "was",
+    "pt": "era / foi"
+  },
+  {
+    "id": "877f7035-c066-4368-9a68-c282e54da2ad",
+    "en": "much",
+    "pt": "muito"
+  },
+  {
+    "id": "e7f4a1f2-571f-48c2-a2fd-9bcc7e68b31b",
+    "en": "wonder",
+    "pt": "imaginar"
+  },
+  {
+    "id": "802a3ef6-558a-415f-a99f-6ca15f644eb2",
+    "en": "them",
+    "pt": "eles / elas"
+  },
+  {
+    "id": "efee9d14-0e46-4e29-8f39-d39ca1175c2b",
+    "en": "then",
+    "pt": "então"
+  },
+  {
+    "id": "8b538d66-ae01-4821-a8dc-8ca73cef0d8b",
+    "en": "spend",
+    "pt": "passar (tempo)"
+  },
+  {
+    "id": "8e1c3e75-92aa-4b4e-8aeb-cba700f4bbec",
+    "en": "there",
+    "pt": "há / existe"
+  },
+  {
+    "id": "88fd773b-3244-4ec4-be9c-6c61bd6fe458",
+    "en": "on",
+    "pt": "em"
+  },
+  {
+    "id": "983b06f4-5820-413b-93ff-b428bdca0971",
+    "en": "to",
+    "pt": "para"
+  },
+  {
+    "id": "eb2d0f7f-941b-4a4a-a1df-841ba71026ef",
+    "en": "generation",
+    "pt": "geração"
   }
 ]
