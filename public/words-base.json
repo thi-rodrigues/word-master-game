@@ -67,26 +67,26 @@
   },
   {
     "id": "shared-1783820343986",
-    "en": "apple",
-    "pt": "maçã",
+    "en": "that",
+    "pt": "aquele",
     "category": "Fruta"
   },
   {
     "id": "shared-1783897458002",
-    "en": "orange",
-    "pt": "laranja",
+    "en": "who",
+    "pt": "quem",
     "category": "Cores"
   },
   {
     "id": "shared-1783898218773",
-    "en": "mirror",
-    "pt": "espelho",
+    "en": "well",
+    "pt": "bem",
     "category": "Banheiro"
   },
   {
     "id": "shared-1783899170441-wjbob1d8x",
-    "en": "window",
-    "pt": "janela",
+    "en": "other",
+    "pt": "outro",
     "category": "Quarto"
   }
 ]

@@ -24,8 +24,8 @@
     </div>
     <div class="card">
       <h2>Importar palavras</h2>
-      <p>Selecione um arquivo JSON com os campos <code>en</code> e <code>pt</code>.</p>
-      <input type="file" accept="application/json,.json" (change)="importWords($event)" />
+      <p>Selecione um arquivo JSON ou CSV com os campos <code>en</code> e <code>pt</code>.</p>
+      <input type="file" accept="application/json,.json,text/csv,.csv" (change)="importWords($event)" />
     </div>
     <div class="card">
       <h2>Palavras disponiveis ({{ activeWords.length }})</h2>

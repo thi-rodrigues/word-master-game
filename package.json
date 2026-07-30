@@ -2,7 +2,7 @@
   "name": "word-master-game",
   "version": "1.0.0",
   "private": true,
-  "scripts": { "start": "ng serve", "build": "ng build" },
+  "scripts": { "start": "ng serve", "start:api": "node server.js", "build": "ng build" },
   "dependencies": {
     "@angular/animations": "^18.2.14", "@angular/common": "^18.2.14", "@angular/compiler": "^18.2.14", "@angular/core": "^18.2.14", "@angular/forms": "^18.2.14", "@angular/platform-browser": "^18.2.14", "@angular/router": "^18.2.14", "rxjs": "~7.8.1", "tslib": "^2.3.0", "zone.js": "~0.14.10"
   },

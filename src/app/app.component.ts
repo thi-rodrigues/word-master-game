@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.user = localStorage.getItem('vocab-user-v1') || '';
     this.scores = this.read<Score[]>('vocab-scores-v1', []);
-    fetch('/words-base.json')
+    fetch('/words.json')
       .then(response => {
         if (!response.ok) throw new Error('Unable to load vocabulary.');
         return response.json() as Promise<Word[]>;
@@ -111,11 +111,15 @@ export class AppComponent implements OnInit {
       this.message = 'Esta palavra ja esta cadastrada.';
       return;
     }
-    this.sharedWords = [...this.sharedWords, { id: crypto.randomUUID(), en, pt, category: this.category.trim() || undefined }];
-    this.en = '';
-    this.pt = '';
-    this.category = '';
-    this.message = 'Palavra adicionada para esta sessao.';
+    this.persistWords([{ id: crypto.randomUUID(), en, pt, category: this.category.trim() || undefined }])
+      .then(words => {
+        this.sharedWords = [...this.sharedWords, ...words];
+        this.en = '';
+        this.pt = '';
+        this.category = '';
+        this.message = 'Palavra adicionada ao arquivo words.json.';
+      })
+      .catch(() => (this.message = 'Nao foi possivel salvar. Inicie a API com npm run start:api.'));
   }
 
   removeWord(id: string) {
@@ -127,16 +131,44 @@ export class AppComponent implements OnInit {
     const file = input.files?.[0];
     if (!file) return;
     file.text()
-      .then(text => JSON.parse(text) as Word[])
+      .then(text => file.name.toLowerCase().endsWith('.csv') ? this.parseCsv(text) : JSON.parse(text) as Word[])
       .then(words => {
         if (!Array.isArray(words) || words.some(word => !word.en || !word.pt)) throw new Error('Invalid vocabulary file.');
-        const existing = new Set(this.sharedWords.map(word => `${word.en.toLowerCase()}|${word.pt.toLowerCase()}`));
-        const additions = words.filter(word => !existing.has(`${word.en.toLowerCase()}|${word.pt.toLowerCase()}`));
-        this.sharedWords = [...this.sharedWords, ...additions.map(word => ({ ...word, id: word.id || crypto.randomUUID() }))];
-        this.message = `${additions.length} palavra(s) importada(s) para esta sessao.`;
+        return this.persistWords(words.map(word => ({ ...word, id: word.id || crypto.randomUUID() })));
       })
-      .catch(() => (this.message = 'Arquivo invalido. Use um JSON com os campos en e pt.'));
+      .then(words => {
+        this.sharedWords = [...this.sharedWords, ...words];
+        this.message = `${words.length} palavra(s) importada(s) para words.json.`;
+      })
+      .catch(() => (this.message = 'Arquivo invalido ou API indisponivel. Use JSON/CSV com en e pt.'));
     input.value = '';
+  }
+
+  private persistWords(words: Word[]): Promise<Word[]> {
+    return fetch('/api/words', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ words }),
+    }).then(async response => {
+      const body = await response.json() as { words?: Word[] };
+      if (!response.ok) throw new Error('Unable to save words.');
+      return body.words || [];
+    });
+  }
+
+  private parseCsv(text: string): Word[] {
+    const rows = text.trim().split(/\r?\n/).filter(Boolean);
+    if (rows.length < 2) return [];
+    const delimiter = rows[0].includes(';') ? ';' : ',';
+    const headers = rows.shift()!.replace(/^\uFEFF/, '').split(delimiter).map(header => header.trim().toLowerCase());
+    const enIndex = headers.indexOf('en');
+    const ptIndex = headers.indexOf('pt');
+    const categoryIndex = headers.indexOf('category');
+    if (enIndex < 0 || ptIndex < 0) throw new Error('Invalid CSV headers.');
+    return rows.map(row => {
+      const cells = row.split(delimiter).map(cell => cell.trim().replace(/^"|"$/g, ''));
+      return { id: crypto.randomUUID(), en: cells[enIndex], pt: cells[ptIndex], category: categoryIndex >= 0 ? cells[categoryIndex] : undefined };
+    });
   }
 
   toggleCategory(category: string) {
