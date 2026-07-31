@@ -146,7 +146,7 @@
   {
     "id": "67b37f67-facf-4bea-97ac-1b3b55fd6790",
     "en": "single",
-    "pt": "solteiro / unico"
+    "pt": "solteiro/unico"
   },
   {
     "id": "618fbb4b-68c3-4c13-8aca-13480ce3614e",
@@ -166,7 +166,7 @@
   {
     "id": "850f3cca-959e-49f1-9487-b666dac97032",
     "en": "though",
-    "pt": "embora / como se"
+    "pt": "embora/como se"
   },
   {
     "id": "15d4eba3-fee1-46b6-a14f-e40a1d9664a6",
@@ -181,12 +181,12 @@
   {
     "id": "060b09ae-e7c9-4e64-b567-7e799167779b",
     "en": "too",
-    "pt": "demais"
+    "pt": "demais/também"
   },
   {
     "id": "7aea7fa3-232c-4763-92ac-8acd43a28cfc",
     "en": "was",
-    "pt": "era / foi"
+    "pt": "era/foi"
   },
   {
     "id": "877f7035-c066-4368-9a68-c282e54da2ad",
@@ -201,7 +201,7 @@
   {
     "id": "802a3ef6-558a-415f-a99f-6ca15f644eb2",
     "en": "them",
-    "pt": "eles / elas"
+    "pt": "eles/elas"
   },
   {
     "id": "efee9d14-0e46-4e29-8f39-d39ca1175c2b",
@@ -216,7 +216,7 @@
   {
     "id": "8e1c3e75-92aa-4b4e-8aeb-cba700f4bbec",
     "en": "there",
-    "pt": "há / existe"
+    "pt": "há/existe"
   },
   {
     "id": "88fd773b-3244-4ec4-be9c-6c61bd6fe458",
@@ -236,6 +236,6 @@
   {
     "id": "3eed2611-8dc1-41b5-b98d-18a755659756",
     "en": "apart",
-    "pt": "separado / separada"
+    "pt": "separado/separada"
   }
 ]

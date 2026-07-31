@@ -221,7 +221,7 @@ export class AppComponent implements OnInit {
       value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
     let expectedNormalized = normalize(this.expected);
-    let arr = expectedNormalized.split(' / ');
+    let arr = expectedNormalized.split('/');
 
     // const correct = normalize(this.answer) === normalize(this.expected);
     const correct = arr.includes(normalize(this.answer));
