@@ -24,14 +24,14 @@
     </div>
     <div class="card">
       <h2>Importar palavras</h2>
-      <p>Selecione um arquivo JSON ou CSV com os campos <code>en</code> e <code>pt</code>.</p>
+      <p>Selecione um arquivo JSON ou CSV com as colunas [ <strong>id | en | pt | category </strong>].</p>
       <input type="file" accept="application/json,.json,text/csv,.csv" (change)="importWords($event)" />
     </div>
     <div class="card">
       <h2>Palavras disponiveis ({{ activeWords.length }})</h2>
       <div class="chips"><button [class.primary]="!filter" (click)="filter = ''">Todas</button><button *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
       <p *ngIf="!filteredWords.length">Nenhuma palavra nesta categoria.</p>
-      <ul><li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category || 'Sem categoria' }})</small></span><button (click)="removeWord(word.id)">Remover</button></li></ul>
+      <ul><li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category || 'Sem categoria' }})</small></span><button (click)="removeWord(word.id!)">Remover</button></li></ul>
     </div>
     <button class="primary wide" (click)="view = 'play'">Jogar</button>
   </section>

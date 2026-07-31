@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type Word = { id: string; en: string; pt: string; category?: string };
+type Word = { id?: string; en: string; pt: string; category?: string };
 type Score = {
   id: string;
   user: string;
@@ -137,8 +137,8 @@ export class AppComponent implements OnInit {
     const file = input.files?.[0];
     if (!file) return;
     file.text()
-      .then(text => file.name.toLowerCase().endsWith('.csv') ? this.parseCsv(text) : JSON.parse(text) as Word[])
-      .then(words => {
+    .then(text => file.name.toLowerCase().endsWith('.csv') ? this.parseCsv(text) : JSON.parse(text) as Word[])
+    .then(words => {
         if (!Array.isArray(words) || words.some(word => !word.en || !word.pt)) throw new Error('Invalid vocabulary file.');
         return this.persistWords(words.map(word => ({ ...word, id: word.id || crypto.randomUUID() })));
       })
