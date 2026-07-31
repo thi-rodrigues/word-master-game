@@ -10,11 +10,11 @@ const path = require("path");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "dist/meu-projeto/browser")));
+app.use(express.static(path.join(__dirname, "dist/word-master-game/browser")));
 
 app.get("*", (req, res) => {
     res.sendFile(
-        path.join(__dirname, "dist/meu-projeto/browser/index.html")
+        path.join(__dirname, "dist/word-master-game/browser/index.html")
     );
 });
 
