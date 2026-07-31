@@ -5,6 +5,19 @@ const path = require('node:path');
 const port = Number(process.env.PORT || 3000);
 const wordsFile = path.join(__dirname, 'public', 'words.json');
 
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, "dist/meu-projeto/browser")));
+
+app.get("*", (req, res) => {
+    res.sendFile(
+        path.join(__dirname, "dist/meu-projeto/browser/index.html")
+    );
+});
+
 function send(response, status, body) {
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   response.end(JSON.stringify(body));
