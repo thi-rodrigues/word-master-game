@@ -3,31 +3,31 @@
     "id": "shared-004",
     "en": "as",
     "pt": "como",
-    "category": "Natureza"
+    "category": ""
   },
   {
     "id": "shared-005",
     "en": "ago",
     "pt": "atrás",
-    "category": "Natureza"
+    "category": ""
   },
   {
     "id": "shared-006",
     "en": "be",
     "pt": "ser/estar",
-    "category": "Pessoas"
+    "category": ""
   },
   {
     "id": "shared-007",
     "en": "better",
     "pt": "melhor",
-    "category": "Lugares"
+    "category": ""
   },
   {
     "id": "shared-008",
     "en": "breakdown",
     "pt": "ruptura",
-    "category": "Arte"
+    "category": ""
   },
   {
     "id": "shared-1783818027073",
@@ -39,64 +39,31 @@
     "id": "shared-1783818049981",
     "en": "feel",
     "pt": "sentir",
-    "category": "Transporte"
+    "category": ""
   },
   {
     "id": "shared-1783818124234",
     "en": "It",
     "pt": "isso",
-    "category": "Cores"
+    "category": ""
   },
   {
     "id": "shared-1783818222299",
     "en": "mean",
     "pt": "significar",
-    "category": "Cores"
+    "category": ""
   },
   {
     "id": "shared-1783818234705",
     "en": "should",
     "pt": "deveria",
-    "category": "Escola"
-  },
-  {
-    "id": "shared-1783820343986",
-    "en": "apple",
-    "pt": "maçã",
-    "category": "Fruta"
-  },
-  {
-    "id": "shared-1783897458002",
-    "en": "orange",
-    "pt": "laranja",
-    "category": "Cores"
+    "category": ""
   },
   {
     "id": "shared-1783898218773",
     "en": "mirror",
     "pt": "espelho",
-    "category": "Banheiro"
-  },
-  {
-    "id": "shared-1783899170441-wjbob1d8x",
-    "en": "window",
-    "pt": "janela",
-    "category": "Quarto"
-  },
-  {
-    "id": "18b2da0e-fd11-4e75-8ef7-67468a61c1e9",
-    "en": "test",
-    "pt": "teste"
-  },
-  {
-    "id": "17b09326-ea3c-4366-8325-2b1a94ea0fd9",
-    "en": "apples",
-    "pt": "maças"
-  },
-  {
-    "id": "87a9fc24-9391-4404-9ca1-bd42dd20f609",
-    "en": "sasa",
-    "pt": "sasas"
+    "category": ""
   },
   {
     "id": "56bcb754-91b1-4780-a63d-67dab709f89c",
@@ -246,11 +213,11 @@
   {
     "id": "640cbea3-488e-4e18-9ec6-aa0ca44b79f6",
     "en": "Look at you",
-    "pt": "Olhe para voc�"
+    "pt": "Olhe para você"
   },
   {
     "id": "b81693b9-c8aa-4f57-91ef-a9a6ef428f2b",
-    "en": "Do you want to",
-    "pt": "Voc� quer?"
+    "en": "Do you want to?",
+    "pt": "Você quer?"
   }
 ]

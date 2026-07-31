@@ -1,5 +1,5 @@
 <main>
-  <nav *ngIf="user">
+  <nav *ngIf="user" class="nav">
     <button (click)="view = 'home'">Inicio</button>
     <button (click)="view = 'play'">Jogar</button>
     <button (click)="view = 'ranking'">Ranking</button>
@@ -14,10 +14,14 @@
   </section>
 
   <section *ngIf="user && view === 'home'" class="page">
-    <header><h1>Vocabulario</h1><p>Palavras de base carregadas de words-base.json.</p></header>
+    <header>
+      <h1>Vocabulario</h1>
+      <!-- <p>Palavras de base carregadas de words-base.json.</p> -->
+    </header>
     <div class="card">
       <h2>Cadastrar palavra</h2>
-      <div class="grid"><label>Ingles<input [(ngModel)]="en" placeholder="apple" /></label><label>Portugues<input [(ngModel)]="pt" placeholder="maca" /></label></div>
+      <div class="grid"><label>Ingles<input [(ngModel)]="en" placeholder="apple" /></label><label>Portugues<input
+            [(ngModel)]="pt" placeholder="maca" /></label></div>
       <label>Categoria<input [(ngModel)]="category" placeholder="Opcional" /></label>
       <button class="primary wide" (click)="addWord()">Adicionar</button>
       <p class="success" *ngIf="message">{{ message }}</p>
@@ -29,9 +33,13 @@
     </div>
     <div class="card">
       <h2>Palavras disponiveis ({{ activeWords.length }})</h2>
-      <div class="chips"><button [class.primary]="!filter" (click)="filter = ''">Todas</button><button *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
+      <div class="chips"><button [class.primary]="!filter" (click)="filter = ''">Todas</button><button
+          *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
       <p *ngIf="!filteredWords.length">Nenhuma palavra nesta categoria.</p>
-      <ul><li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category || 'Sem categoria' }})</small></span><button (click)="removeWord(word.id!)">Remover</button></li></ul>
+      <ul>
+        <li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category ||
+              'Sem categoria' }})</small></span><button (click)="removeWord(word.id!)">Remover</button></li>
+      </ul>
     </div>
     <button class="primary wide" (click)="view = 'play'">Jogar</button>
   </section>
@@ -44,7 +52,8 @@
     <div *ngIf="wordsLoaded && activeWords.length">
       <p>Escolha categorias (opcional)</p>
       <div class="chips">
-        <button *ngFor="let c of categories" [class.primary]="selection.includes(c)" (click)="toggleCategory(c)">{{ c }}</button>
+        <button *ngFor="let c of categories" [class.primary]="selection.includes(c)" (click)="toggleCategory(c)">{{ c
+          }}</button>
       </div>
       <button class="primary wide" (click)="start('pt')">Responder em Portugues</button>
       <button class="wide" (click)="start('en')">Responder em Ingles</button>
@@ -62,13 +71,21 @@
     <div *ngIf="!finished">
       <p>{{ lang === 'pt' ? 'Palavra em ingles' : 'Palavra em portugues' }} - {{ idx + 1 }} / {{ queue.length }}</p>
       <h1>{{ prompt }}</h1>
-      <div *ngIf="paused"><p>Jogo pausado</p><button class="primary" (click)="togglePause()">Continuar</button></div>
+      <div *ngIf="paused">
+        <p>Jogo pausado</p><button class="primary" (click)="togglePause()">Continuar</button>
+      </div>
       <div *ngIf="!paused">
-        <input [(ngModel)]="answer" (keyup.enter)="check()" [placeholder]="lang === 'pt' ? 'Escreva em portugues' : 'Escreva em ingles'" autofocus />
+        <input [(ngModel)]="answer" (keyup.enter)="check()"
+          [placeholder]="lang === 'pt' ? 'Escreva em portugues' : 'Escreva em ingles'" autofocus />
         <button class="primary wide" (click)="check()">{{ result ? 'Proxima' : 'Verificar' }}</button>
-        <button class="wide" *ngIf="!result" (click)="back()">Voltar</button>
-        <button class="wide" *ngIf="!result" (click)="skip()">Pular</button>
-        <p *ngIf="result" [class.success]="result.correct" [class.error]="!result.correct">{{ result.correct ? 'Correto! ' : 'Resposta correta: '  }}{{ result.expected }}</p>
+
+        <div class="btn-group">
+          <button class="wide-back" *ngIf="!result" (click)="back()">Voltar</button>
+          <button class="wide-skip" *ngIf="!result" (click)="skip()">Pular</button>
+        </div>
+
+        <p *ngIf="result" [class.success]="result.correct" [class.error]="!result.correct">{{ result.correct ? 'Correto!
+          ' : 'Resposta correta: ' }}{{ result.expected }}</p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>
         <button (click)="togglePause()">Pausar</button>
         <button class="danger" (click)="complete()">Finalizar jogo</button>
@@ -77,13 +94,16 @@
   </section>
 
   <section *ngIf="user && view === 'ranking'" class="page">
-    <header><h1>Ranking</h1></header>
+    <header>
+      <h1>Ranking</h1>
+    </header>
     <div class="card">
       <h2>Jogadas</h2>
       <p *ngIf="!scores.length">Nenhuma partida registrada ainda.</p>
       <ol>
         <li *ngFor="let s of scores; let i = index">
-          <span><b>{{ i + 1 }}. {{ s.user }}</b><small>{{ s.lang === 'pt' ? 'Portugues' : 'Ingles' }} - {{ duration(s.durationSeconds) }} - {{ s.finishedAt | date: 'dd/MM/yyyy HH:mm' }}</small></span>
+          <span><b>{{ i + 1 }}. {{ s.user }}</b><small>{{ s.lang === 'pt' ? 'Portugues' : 'Ingles' }} - {{
+              duration(s.durationSeconds) }} - {{ s.finishedAt | date: 'dd/MM/yyyy HH:mm' }}</small></span>
           <b>{{ percent(s) }}%<small>{{ s.right }}/{{ s.total }} acertos</small></b>
         </li>
       </ol>
