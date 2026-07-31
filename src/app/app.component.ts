@@ -24,7 +24,7 @@ type Score = {
 })
 export class AppComponent implements OnInit {
   view: 'home' | 'play' | 'quiz' | 'ranking' = 'home';
-  user = '';
+  userLogged = '';
   nameInput = '';
   sharedWords: Word[] = [];
   wordsLoaded = false;
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   scores: Score[] = [];
 
   ngOnInit() {
-    this.user = localStorage.getItem('vocab-user-v1') || '';
+    this.userLogged = localStorage.getItem('userLogged') || '';
     this.scores = this.read<Score[]>('vocab-scores-v1', []);
     fetch('/words.json')
       .then(response => {
@@ -90,14 +90,14 @@ export class AppComponent implements OnInit {
 
   register() {
     if (!this.nameInput.trim()) return;
-    this.user = this.nameInput.trim();
-    localStorage.setItem('vocab-user-v1', this.user);
+    this.userLogged = this.nameInput.trim();
+    localStorage.setItem('userLogged', this.userLogged);
     this.view = 'play';
   }
 
   logout() {
-    localStorage.removeItem('vocab-user-v1');
-    this.user = '';
+    localStorage.removeItem('userLogged');
+    this.userLogged = '';
     this.nameInput = '';
     this.view = 'home';
   }
@@ -262,7 +262,7 @@ export class AppComponent implements OnInit {
     this.finished = true;
     window.clearInterval(this.timer);
     const score: Score = {
-      id: crypto.randomUUID(), user: this.user, lang: this.lang, right: this.right, wrong: this.wrong,
+      id: crypto.randomUUID(), user: this.userLogged, lang: this.lang, right: this.right, wrong: this.wrong,
       total: this.queue.length, durationSeconds: this.elapsed, startedAt: this.startedAt,
       finishedAt: Date.now(), at: Date.now(),
     };

@@ -1,19 +1,19 @@
 <main>
-  <nav *ngIf="user" class="nav">
-    <button (click)="view = 'home'">Inicio</button>
+  <nav *ngIf="userLogged" class="nav">
+    <button (click)="view = 'home'" *ngIf="userLogged == 'Th14g0'">Inicio</button>
     <button (click)="view = 'play'">Jogar</button>
     <button (click)="view = 'ranking'">Ranking</button>
-    <button (click)="logout()">Sair ({{ user }})</button>
+    <button (click)="logout()">Sair ({{ userLogged }})</button>
   </nav>
 
-  <section *ngIf="!user" class="card auth">
+  <section *ngIf="!userLogged" class="card auth">
     <h1>Bem-vindo!</h1>
     <label>Seu nome<input [(ngModel)]="nameInput" placeholder="Digite seu nome" /></label>
     <p>As palavras para treino sao carregadas do arquivo de vocabulario.</p>
     <button class="primary wide" (click)="register()" [disabled]="!nameInput.trim()">Comecar</button>
   </section>
 
-  <section *ngIf="user && view === 'home'" class="page">
+  <section *ngIf="userLogged && view === 'home'" class="page">
     <header>
       <h1>Vocabulario</h1>
       <!-- <p>Palavras de base carregadas de words-base.json.</p> -->
@@ -44,7 +44,7 @@
     <button class="primary wide" (click)="view = 'play'">Jogar</button>
   </section>
 
-  <section *ngIf="user && view === 'play'" class="card centered">
+  <section *ngIf="userLogged && view === 'play'" class="card centered">
     <h1>Escolha o modo</h1>
     <p>Vocabulario: words-base.json</p>
     <p *ngIf="!wordsLoaded && !wordsLoadError">Carregando palavras...</p>
@@ -61,7 +61,7 @@
     <p *ngIf="wordsLoaded && !activeWords.length">O arquivo de vocabulario nao possui palavras.</p>
   </section>
 
-  <section *ngIf="user && view === 'quiz'" class="card centered">
+  <section *ngIf="userLogged && view === 'quiz'" class="card centered">
     <div class="top"><button (click)="view = 'play'">Voltar</button><span>{{ duration(elapsed) }}</span></div>
     <div *ngIf="finished">
       <h1>Fim!</h1>
@@ -93,7 +93,7 @@
     </div>
   </section>
 
-  <section *ngIf="user && view === 'ranking'" class="page">
+  <section *ngIf="userLogged && view === 'ranking'" class="page">
     <header>
       <h1>Ranking</h1>
     </header>
