@@ -254,6 +254,34 @@
   {
     "id": "0eaaf030-bdde-4530-9aa6-a3ada8b7a1fc",
     "en": "Still",
-    "pt": "ainda"
+    "pt": "ainda",
+    "category": ""
+  },
+  {
+    "id": "d246fdcc-3329-4332-b0c5-787d7e259858",
+    "en": "Something",
+    "pt": "Alguma coisa/algo",
+    "category": ""
+  },
+  {
+    "id": "aa231fb6-4a8d-4548-acbe-0fd6b9ed2b3b",
+    "en": "Just",
+    "pt": "Apenas"
+  },
+  {
+    "id": "fdb725e0-25c7-4517-a57f-977ef13b3bb3",
+    "en": "Well",
+    "pt": "Bem"
+  },
+  {
+    "id": "1acf2d8a-2c90-4adc-8874-55b24d76cf2b",
+    "en": "Spent",
+    "pt": "Gasto"
+  },
+  {
+    "id": "aa4d16a1-af24-41d7-89df-370516a0193a",
+    "en": "Must pee",
+    "pt": "Preciso fazer xixi",
+    "category": "Frases"
   }
 ]
