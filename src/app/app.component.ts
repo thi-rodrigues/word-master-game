@@ -23,8 +23,8 @@ type Score = {
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  view: 'home' | 'play' | 'quiz' | 'ranking' = 'home';
-  userLogged = '';
+  view: 'home' | 'play' | 'quiz' | 'ranking' = 'play';
+  userLogged = localStorage.getItem('userLogged');
   nameInput = '';
   sharedWords: Word[] = [];
   wordsLoaded = false;
@@ -89,9 +89,10 @@ export class AppComponent implements OnInit {
   }
 
   register() {
-    if (!this.nameInput.trim()) return;
-    this.userLogged = this.nameInput.trim();
-    localStorage.setItem('userLogged', this.userLogged);
+    if (!this.nameInput.trim() && !localStorage.getItem('userLogged')) return;
+
+    this.userLogged = this.nameInput.trim().toUpperCase();
+    localStorage.setItem('userLogged', this.userLogged.trim());
     this.view = 'play';
   }
 
@@ -117,7 +118,8 @@ export class AppComponent implements OnInit {
         this.en = '';
         this.pt = '';
         this.category = '';
-        this.message = 'Palavra adicionada ao arquivo words.json.';
+        // this.message = 'Palavra adicionada ao arquivo words.json.';
+        this.message = 'Palavra adicionada com sucesso.';
       })
       .catch(() => (this.message = 'Nao foi possivel salvar. Inicie a API com npm run start:api.'));
   }
@@ -262,7 +264,7 @@ export class AppComponent implements OnInit {
     this.finished = true;
     window.clearInterval(this.timer);
     const score: Score = {
-      id: crypto.randomUUID(), user: this.userLogged, lang: this.lang, right: this.right, wrong: this.wrong,
+      id: crypto.randomUUID(), user: this.userLogged || '', lang: this.lang, right: this.right, wrong: this.wrong,
       total: this.queue.length, durationSeconds: this.elapsed, startedAt: this.startedAt,
       finishedAt: Date.now(), at: Date.now(),
     };

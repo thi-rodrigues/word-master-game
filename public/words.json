@@ -68,156 +68,192 @@
   {
     "id": "56bcb754-91b1-4780-a63d-67dab709f89c",
     "en": "other",
-    "pt": "outro"
+    "pt": "outro",
+    "category": ""
   },
   {
     "id": "d2527e05-3855-4568-8d90-af40de6866f2",
     "en": "in",
-    "pt": "em"
+    "pt": "em",
+    "category": ""
   },
   {
     "id": "bca8349c-e927-4602-975e-10be03ab0b75",
     "en": "talk",
-    "pt": "outro"
+    "pt": "outro",
+    "category": ""
   },
   {
     "id": "4d2ad55e-9839-4c41-a102-3b8d3838509f",
     "en": "so",
-    "pt": "tão"
+    "pt": "tão",
+    "category": ""
   },
   {
     "id": "b5a04558-e4a3-42ed-89e4-5ee484742b50",
     "en": "get",
-    "pt": "ficar/conseguir"
+    "pt": "ficar/conseguir",
+    "category": ""
   },
   {
     "id": "082c1919-20d5-436b-aa45-b191c081e942",
     "en": "maybe",
-    "pt": "talvez"
+    "pt": "talvez",
+    "category": ""
   },
   {
     "id": "cdfd1f73-6962-4bd7-a6bc-3d20a1df37bf",
     "en": "rising",
-    "pt": "aumentando"
+    "pt": "aumentando",
+    "category": ""
   },
   {
     "id": "fe75ae8a-6a74-4ebd-813c-1c18a6690cfb",
     "en": "everywhere",
-    "pt": "em todo lugar"
+    "pt": "em todo lugar",
+    "category": ""
   },
   {
     "id": "cb00dea6-1dfb-4d23-993d-a5faa16055a2",
     "en": "means",
-    "pt": "sentir"
+    "pt": "sentir",
+    "category": ""
   },
   {
     "id": "67b37f67-facf-4bea-97ac-1b3b55fd6790",
     "en": "single",
-    "pt": "solteiro/unico"
+    "pt": "solteiro/unico",
+    "category": ""
   },
   {
     "id": "618fbb4b-68c3-4c13-8aca-13480ce3614e",
     "en": "less",
-    "pt": "menos"
+    "pt": "menos",
+    "category": ""
   },
   {
     "id": "2e733ea3-1ee5-4dbf-a24b-4bc3b1a96784",
     "en": "pressure",
-    "pt": "pressão"
+    "pt": "pressão",
+    "category": ""
   },
   {
     "id": "b8f9b2d5-1d3d-4e55-9d15-763fb48c9fff",
     "en": "seems",
-    "pt": "parece"
+    "pt": "parece",
+    "category": ""
   },
   {
     "id": "850f3cca-959e-49f1-9487-b666dac97032",
     "en": "though",
-    "pt": "embora/como se"
+    "pt": "embora/como se",
+    "category": ""
   },
   {
     "id": "15d4eba3-fee1-46b6-a14f-e40a1d9664a6",
     "en": "puts",
-    "pt": "coloca"
+    "pt": "coloca",
+    "category": ""
   },
   {
     "id": "4ebf1b51-ba6d-4457-adad-700e958534f6",
     "en": "put",
-    "pt": "colocar"
+    "pt": "colocar",
+    "category": ""
   },
   {
     "id": "060b09ae-e7c9-4e64-b567-7e799167779b",
     "en": "too",
-    "pt": "demais/também"
+    "pt": "demais/também",
+    "category": ""
   },
   {
     "id": "7aea7fa3-232c-4763-92ac-8acd43a28cfc",
     "en": "was",
-    "pt": "era/foi"
+    "pt": "era/foi",
+    "category": ""
   },
   {
     "id": "877f7035-c066-4368-9a68-c282e54da2ad",
     "en": "much",
-    "pt": "muito"
+    "pt": "muito",
+    "category": ""
   },
   {
     "id": "e7f4a1f2-571f-48c2-a2fd-9bcc7e68b31b",
     "en": "wonder",
-    "pt": "imaginar"
+    "pt": "imaginar",
+    "category": ""
   },
   {
     "id": "802a3ef6-558a-415f-a99f-6ca15f644eb2",
     "en": "them",
-    "pt": "eles/elas"
+    "pt": "eles/elas",
+    "category": ""
   },
   {
     "id": "efee9d14-0e46-4e29-8f39-d39ca1175c2b",
     "en": "then",
-    "pt": "então"
+    "pt": "então",
+    "category": ""
   },
   {
     "id": "8b538d66-ae01-4821-a8dc-8ca73cef0d8b",
     "en": "spend",
-    "pt": "passar (tempo)"
+    "pt": "passar (tempo)",
+    "category": ""
   },
   {
     "id": "8e1c3e75-92aa-4b4e-8aeb-cba700f4bbec",
     "en": "there",
-    "pt": "há/existe"
+    "pt": "há/existe",
+    "category": ""
   },
   {
     "id": "88fd773b-3244-4ec4-be9c-6c61bd6fe458",
     "en": "on",
-    "pt": "em"
+    "pt": "em",
+    "category": ""
   },
   {
     "id": "983b06f4-5820-413b-93ff-b428bdca0971",
     "en": "to",
-    "pt": "para"
+    "pt": "para",
+    "category": ""
   },
   {
     "id": "eb2d0f7f-941b-4a4a-a1df-841ba71026ef",
     "en": "generation",
-    "pt": "geração"
+    "pt": "geração",
+    "category": ""
   },
   {
     "id": "3eed2611-8dc1-41b5-b98d-18a755659756",
     "en": "apart",
-    "pt": "separado/separada"
+    "pt": "separado/separada",
+    "category": ""
   },
   {
     "id": "601719d2-05bf-4124-b5b5-e2a371316749",
     "en": "I will ask her",
-    "pt": "Vou perguntar a ela"
+    "pt": "Vou perguntar a ela",
+    "category": "Frases"
   },
   {
     "id": "640cbea3-488e-4e18-9ec6-aa0ca44b79f6",
     "en": "Look at you",
-    "pt": "Olhe para você"
+    "pt": "Olhe para você",
+    "category": "Frases"
   },
   {
     "id": "b81693b9-c8aa-4f57-91ef-a9a6ef428f2b",
     "en": "Do you want to?",
-    "pt": "Você quer?"
+    "pt": "Você quer?",
+    "category": "Frases"
+  },
+  {
+    "id": "0eaaf030-bdde-4530-9aa6-a3ada8b7a1fc",
+    "en": "Still",
+    "pt": "ainda"
   }
 ]
