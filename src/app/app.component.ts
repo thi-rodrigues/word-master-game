@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type Word = { id?: string; en: string; pt: string; category?: string };
+type Word = { id?: string; en: string; pt: string; category?: string, pronunciation: string; };
 type Score = {
   id: string;
   user: string;
@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   en = '';
   pt = '';
   category = '';
+  pronunciation = '';
   filter = '';
   message = '';
   selection: string[] = [];
@@ -112,12 +113,15 @@ export class AppComponent implements OnInit {
       this.message = 'Esta palavra ja esta cadastrada.';
       return;
     }
-    this.persistWords([{ id: crypto.randomUUID(), en, pt, category: this.category.trim() || undefined }])
+    this.persistWords([{ id: crypto.randomUUID(), en, pt, 
+      category: this.category.trim() || undefined, 
+      pronunciation: this.pronunciation.trim() }])
       .then(words => {
         this.sharedWords = [...this.sharedWords, ...words];
         this.en = '';
         this.pt = '';
         this.category = '';
+        this.pronunciation = '';
         // this.message = 'Palavra adicionada ao arquivo words.json.';
         this.message = 'Palavra adicionada com sucesso.';
       })
@@ -139,9 +143,13 @@ export class AppComponent implements OnInit {
     const file = input.files?.[0];
     if (!file) return;
     file.text()
-    .then(text => file.name.toLowerCase().endsWith('.csv') ? this.parseCsv(text) : JSON.parse(text) as Word[])
-    .then(words => {
-        if (!Array.isArray(words) || words.some(word => !word.en || !word.pt)) throw new Error('Invalid vocabulary file.');
+      .then(text => file.name.toLowerCase().endsWith('.csv') ? this.parseCsv(text) : JSON.parse(text) as Word[])
+      .then(words => {
+        // if (!Array.isArray(words) || words.some(word => !word.en || !word.pt)) {
+        if (!Array.isArray(words) ) {
+          console.log('Invalid vocabulary file.');
+          throw new Error('Invalid vocabulary file.');
+        }
         return this.persistWords(words.map(word => ({ ...word, id: word.id || crypto.randomUUID() })));
       })
       .then(words => {
@@ -152,14 +160,22 @@ export class AppComponent implements OnInit {
     input.value = '';
   }
 
-  private persistWords(words: Word[]): Promise<Word[]> {
+private persistWords(words: Word[]): Promise<Word[]> {
+    debugger
     return fetch('/api/words', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ words }),
     }).then(async response => {
+      console.log(response);
+      
       const body = await response.json() as { words?: Word[] };
-      if (!response.ok) throw new Error('Unable to save words.');
+      console.log(body);
+      
+      if (!response.ok) {
+        console.log('Unable to save words.');
+          throw new Error('Unable to save words.');
+      }
       return body.words || [];
     });
   }
@@ -172,10 +188,14 @@ export class AppComponent implements OnInit {
     const enIndex = headers.indexOf('en');
     const ptIndex = headers.indexOf('pt');
     const categoryIndex = headers.indexOf('category');
+    const pronunciationIndex = headers.indexOf('pronunciation');
     if (enIndex < 0 || ptIndex < 0) throw new Error('Invalid CSV headers.');
     return rows.map(row => {
       const cells = row.split(delimiter).map(cell => cell.trim().replace(/^"|"$/g, ''));
-      return { id: crypto.randomUUID(), en: cells[enIndex], pt: cells[ptIndex], category: categoryIndex >= 0 ? cells[categoryIndex] : undefined };
+      return { id: crypto.randomUUID(), en: cells[enIndex], 
+        pt: cells[ptIndex], 
+        category: categoryIndex >= 0 ? cells[categoryIndex] : undefined,
+        pronunciation: cells[pronunciationIndex] };
     });
   }
 

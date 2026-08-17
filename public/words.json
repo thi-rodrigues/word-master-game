@@ -3,31 +3,36 @@
     "id": "shared-004",
     "en": "as",
     "pt": "como",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-005",
     "en": "ago",
     "pt": "atrás",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-006",
     "en": "be",
     "pt": "ser/estar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-007",
     "en": "better",
     "pt": "melhor",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-008",
     "en": "breakdown",
     "pt": "ruptura",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-1783818027073",
@@ -39,199 +44,225 @@
     "id": "shared-1783818049981",
     "en": "feel",
     "pt": "sentir",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-1783818124234",
     "en": "It",
     "pt": "isso",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-1783818222299",
     "en": "mean",
     "pt": "significar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "shared-1783818234705",
     "en": "should",
     "pt": "deveria",
-    "category": ""
-  },
-  {
-    "id": "shared-1783898218773",
-    "en": "mirror",
-    "pt": "espelho",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "56bcb754-91b1-4780-a63d-67dab709f89c",
     "en": "other",
     "pt": "outro",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "d2527e05-3855-4568-8d90-af40de6866f2",
     "en": "in",
     "pt": "em",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "bca8349c-e927-4602-975e-10be03ab0b75",
     "en": "talk",
     "pt": "outro",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4d2ad55e-9839-4c41-a102-3b8d3838509f",
     "en": "so",
     "pt": "tão",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "b5a04558-e4a3-42ed-89e4-5ee484742b50",
     "en": "get",
     "pt": "ficar/conseguir",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "082c1919-20d5-436b-aa45-b191c081e942",
     "en": "maybe",
     "pt": "talvez",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "cdfd1f73-6962-4bd7-a6bc-3d20a1df37bf",
     "en": "rising",
     "pt": "aumentando",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "fe75ae8a-6a74-4ebd-813c-1c18a6690cfb",
     "en": "everywhere",
     "pt": "em todo lugar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "cb00dea6-1dfb-4d23-993d-a5faa16055a2",
     "en": "means",
     "pt": "sentir",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "67b37f67-facf-4bea-97ac-1b3b55fd6790",
     "en": "single",
     "pt": "solteiro/unico",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "618fbb4b-68c3-4c13-8aca-13480ce3614e",
     "en": "less",
     "pt": "menos",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "2e733ea3-1ee5-4dbf-a24b-4bc3b1a96784",
     "en": "pressure",
     "pt": "pressão",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "b8f9b2d5-1d3d-4e55-9d15-763fb48c9fff",
     "en": "seems",
     "pt": "parece",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "850f3cca-959e-49f1-9487-b666dac97032",
     "en": "though",
     "pt": "embora/como se",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "15d4eba3-fee1-46b6-a14f-e40a1d9664a6",
     "en": "puts",
     "pt": "coloca",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4ebf1b51-ba6d-4457-adad-700e958534f6",
     "en": "put",
     "pt": "colocar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "060b09ae-e7c9-4e64-b567-7e799167779b",
     "en": "too",
     "pt": "demais/também",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "7aea7fa3-232c-4763-92ac-8acd43a28cfc",
     "en": "was",
     "pt": "era/foi",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "877f7035-c066-4368-9a68-c282e54da2ad",
     "en": "much",
     "pt": "muito",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "e7f4a1f2-571f-48c2-a2fd-9bcc7e68b31b",
     "en": "wonder",
     "pt": "imaginar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "802a3ef6-558a-415f-a99f-6ca15f644eb2",
     "en": "them",
     "pt": "eles/elas",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "efee9d14-0e46-4e29-8f39-d39ca1175c2b",
     "en": "then",
     "pt": "então",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "8b538d66-ae01-4821-a8dc-8ca73cef0d8b",
     "en": "spend",
     "pt": "passar (tempo)",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "8e1c3e75-92aa-4b4e-8aeb-cba700f4bbec",
     "en": "there",
     "pt": "há/existe",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "88fd773b-3244-4ec4-be9c-6c61bd6fe458",
     "en": "on",
     "pt": "em",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "983b06f4-5820-413b-93ff-b428bdca0971",
     "en": "to",
     "pt": "para",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "eb2d0f7f-941b-4a4a-a1df-841ba71026ef",
     "en": "generation",
     "pt": "geração",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "3eed2611-8dc1-41b5-b98d-18a755659756",
     "en": "apart",
     "pt": "separado/separada",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "601719d2-05bf-4124-b5b5-e2a371316749",
@@ -255,13 +286,15 @@
     "id": "0eaaf030-bdde-4530-9aa6-a3ada8b7a1fc",
     "en": "Still",
     "pt": "ainda",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "d246fdcc-3329-4332-b0c5-787d7e259858",
     "en": "Something",
     "pt": "Alguma coisa/algo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "aa231fb6-4a8d-4548-acbe-0fd6b9ed2b3b",
@@ -288,486 +321,562 @@
     "id": "f7452989-f0be-4153-859e-473eb1cc1559",
     "en": "What",
     "pt": "o que",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "5490719a-b468-4f8e-baff-d153c03a122a",
     "en": "would",
     "pt": "iria / faria",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "92f37fb7-e7c2-4593-9e0a-9660a6dd2560",
     "en": "we",
     "pt": "nós",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "58348d3e-0e78-48a9-855a-2d8eaf923bbf",
     "en": "do",
     "pt": "fazer",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "e1d0b767-50bb-45b6-9193-153c93a2df1c",
     "en": "without",
     "pt": "sem",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "a0a451c2-66fd-485b-adfb-3b1b4d530e49",
     "en": "technology",
     "pt": "tecnologia",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "f1e8c2a7-6337-4f38-bd5b-b458f7055282",
     "en": "Would",
     "pt": "iria / faria",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "ba12d325-4284-4e27-a30d-357a5560aedd",
     "en": "be",
     "pt": "ser / estar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "785a0505-a8d3-4b2e-9a17-70fee9ffeed3",
     "en": "living",
     "pt": "vivendo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "29d9d513-da27-4d30-8c63-680e1fb8a6d3",
     "en": "caves",
     "pt": "cavernas",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "d584ca90-be46-490f-a885-188bdeed99d7",
     "en": "Probably",
     "pt": "provavelmente",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "c2bc94c1-483c-48cf-a9c8-2cfa1e19b547",
     "en": "think",
     "pt": "pensar / acho",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "5a0ac166-2a03-4bb7-9b79-9ef2e7fee5fd",
     "en": "there",
     "pt": "há / lá",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "60c69018-9d3b-4ea7-81a0-5b2cde427644",
     "en": "are",
     "pt": "são / existem",
-    "category": ""
-  },
-  {
-    "id": "29282005-474a-4372-a334-a6558e84238d",
-    "en": "two",
-    "pt": "dois",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "02dbf196-5088-4607-a7a3-00590c30cae8",
     "en": "main",
     "pt": "principal",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "36d44041-023a-4ece-9d05-d3d14885bebb",
     "en": "kinds",
     "pt": "tipos",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "91f745d3-5715-43cc-8b20-ced7159c9014",
     "en": "of",
     "pt": "de",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4fab383c-71f5-440e-ac39-0a6164f765f9",
     "en": "The",
     "pt": "o / a",
-    "category": ""
-  },
-  {
-    "id": "372b6095-b46b-4222-b5b5-2313033eeab7",
-    "en": "before",
-    "pt": "antes",
-    "category": ""
-  },
-  {
-    "id": "3b3325e3-1e1b-425b-a90a-ebea0aed6039",
-    "en": "and",
-    "pt": "e",
-    "category": ""
-  },
-  {
-    "id": "27d377c3-ea3e-4f76-ae15-b5bb7b441b88",
-    "en": "after",
-    "pt": "depois",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "2ae4609d-b2b3-48b4-8951-85636f05bb7f",
     "en": "computers",
     "pt": "computadores",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "312801a8-246c-4d8d-8f33-1c8d898f3187",
     "en": "When",
     "pt": "quando",
-    "category": ""
-  },
-  {
-    "id": "60655049-0f3d-4c8d-a2dd-367266cca213",
-    "en": "about",
-    "pt": "sobre",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "e14febb1-9513-435c-b944-62dbdf4cd34f",
     "en": "it",
     "pt": "isso / ela",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "c3b811c5-a50d-47d9-9877-a969d0d8441f",
     "en": "was",
     "pt": "era / estava",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "cab419f5-384b-4317-a5d7-a7a883f025aa",
     "en": "quite",
     "pt": "bastante",
-    "category": ""
-  },
-  {
-    "id": "fa641f78-df1a-46ee-a0f8-07a9be9fa9f4",
-    "en": "basic",
-    "pt": "básico",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4ee77d80-aa0b-4759-9410-f0897ea0c808",
     "en": "It",
     "pt": "isso / ele",
-    "category": ""
-  },
-  {
-    "id": "6964b8d1-ad47-49af-8220-f0d5a7ff4257",
-    "en": "all",
-    "pt": "tudo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "dc3e1b98-f5fe-4985-8fc2-e3a23fe35a4c",
     "en": "mechanical",
     "pt": "mecânico",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "a39e6d95-28b8-4f05-89a7-7b053e5fe3fe",
     "en": "Things",
     "pt": "coisas",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "02b1cb19-ff85-4e18-a335-4ef84b672f2f",
     "en": "like",
     "pt": "como",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "7fbe7ca2-8b8a-45e3-a27c-b5d9c76f86e0",
     "en": "steam",
     "pt": "vapor",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "7c889cf3-1f0d-4810-8409-fe428ed66269",
     "en": "trains",
     "pt": "trens",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "3dba4c31-2815-4070-8329-0e20440c7080",
     "en": "fridges",
     "pt": "geladeiras",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "8e0114e2-27ea-4dcd-a9e8-912b5dd795c9",
     "en": "At",
     "pt": "em",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "a8720396-83dd-49c9-ae7a-5a24b12c1f8d",
     "en": "the",
     "pt": "o / a",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "a0d8ecc9-2cb1-43da-8d1b-83c22b2eef6b",
     "en": "time",
     "pt": "tempo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4fb370fb-b4b5-4c0a-b1bc-1a6593c98076",
     "en": "that",
     "pt": "isso / que",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "c49f60fe-a604-4809-8cee-7719f42163e5",
     "en": "cutting-edge",
     "pt": "de ponta / de última geração",
-    "category": ""
-  },
-  {
-    "id": "c2977eb4-e384-455a-93db-4fd28bc20ea6",
-    "en": "But",
-    "pt": "mas",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "69505b68-9f72-4ea9-a28c-69a35c54b913",
     "en": "today's",
     "pt": "de hoje",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "7f758335-1adb-4a30-89b9-70d113b72f98",
     "en": "is",
     "pt": "é / está",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "4f318f1b-80f8-444f-8a7b-dbd076587c1b",
     "en": "really",
     "pt": "realmente",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "5e2ac583-6c18-496c-a1dd-1f5ad8a4bdd4",
     "en": "It's",
     "pt": "é / isso é",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "e0304b7f-94e3-4487-b607-4b5093a38a8c",
     "en": "kind",
     "pt": "tipo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "628a9106-bff6-444d-93f8-bc9fff5c45b0",
     "en": "out",
     "pt": "fora",
-    "category": ""
-  },
-  {
-    "id": "a9f5b644-40c2-42ea-84ed-f42689eb7433",
-    "en": "date",
-    "pt": "data",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "fad64f41-a562-4d17-bbcc-1071da63a4bb",
     "en": "as",
     "pt": "assim como / enquanto",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "1d2b2031-a8cc-43cf-be2e-fe203a76eb1e",
     "en": "soon",
     "pt": "logo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "13244d20-fa85-46ee-88c2-56921271d9a3",
     "en": "hits",
     "pt": "chega / atinge",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "6b102b18-feb9-4c86-88c5-de77748a6db6",
     "en": "shelves",
     "pt": "prateleiras",
-    "category": ""
-  },
-  {
-    "id": "f1ff44ae-f5b7-40e8-a555-3ed405dc9080",
-    "en": "I",
-    "pt": "eu",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "2d43a03d-b419-49e5-9d52-15ed9b6858f2",
     "en": "love",
     "pt": "adoro / amo",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "ddaebc50-9cd1-4123-a440-7529fa1d64ba",
     "en": "this",
     "pt": "isso",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "fac4f975-6918-4954-b61a-a3539feeb370",
     "en": "so",
     "pt": "tão",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "dd8f4520-878d-438f-924b-23003853bfc3",
     "en": "exciting",
     "pt": "empolgante",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "f28a8c97-349d-457e-9ab2-0d6a3971379a",
     "en": "seeing",
     "pt": "ver",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "49733677-0742-427f-bd25-61dc5f60d7a6",
     "en": "happen",
     "pt": "acontecer",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "923f89b9-76ed-4534-9a44-b13e490172ef",
     "en": "reading",
     "pt": "ler",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "28144438-4323-41fe-ac64-57f2829e1053",
     "en": "what",
     "pt": "o que",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "01720ab6-f47a-48b0-8ddd-c1f306a28226",
     "en": "we'll",
     "pt": "nós teremos",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "23932a98-5d10-4a44-a8d9-95c4b4e35e26",
     "en": "have",
     "pt": "ter",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "8fc0fe52-d6aa-4524-a65f-24684db7d29b",
     "en": "future",
     "pt": "futuro",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "f4276455-4e9c-407c-8c6a-4ab258fd709e",
     "en": "then",
     "pt": "então",
-    "category": ""
-  },
-  {
-    "id": "42ec201b-7d68-422a-894a-f8e92f39347c",
-    "en": "buy",
-    "pt": "comprar",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "0734b59a-afba-477b-821e-06b12c992412",
     "en": "a",
     "pt": "um / uma",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "c2b46f18-a1cb-4599-aa03-6a8edd6290c5",
     "en": "few",
     "pt": "alguns",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "deddde27-8c11-416b-8511-aacf70fc7ff1",
     "en": "years",
     "pt": "anos",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "7b09df25-9693-427d-b217-62525c887dfa",
     "en": "later",
     "pt": "mais tarde",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "efa9168d-3e58-4d63-a070-ed3770be7f65",
     "en": "science",
     "pt": "ciência",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "b908eadd-e8ea-4f78-9650-da8027b5cc10",
     "en": "fiction",
     "pt": "ficção",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "9558eeab-7f4e-4ca5-b2fa-546f8893c845",
     "en": "movies",
     "pt": "filmes",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "d86b8a73-5f9d-4677-ad37-404b001e8212",
     "en": "I'd",
     "pt": "eu gostaria",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "e8e820de-0184-4bee-bbd4-8f5aa23df0bf",
     "en": "live",
     "pt": "viver",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "d7e97fbc-e7d4-4ecc-ae8e-22d5895f3c00",
     "en": "can",
     "pt": "posso",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "0fb7a96e-daee-4910-93b8-51a20635a7d0",
     "en": "see",
     "pt": "ver",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "b0435c52-6777-47f1-9d12-d866e1e36c6c",
     "en": "around",
     "pt": "por aí / nessa época",
-    "category": ""
+    "category": "",
+    "pronunciation": ""
   },
   {
     "id": "673d62db-d903-4fe6-9b55-ef30776a8965",
     "en": "science fiction  movies.",
     "pt": "filmes de ficção científica",
-    "category": "Frases"
+    "category": "Frases",
+    "pronunciation": ""
+  },
+  {
+    "id": "166247ed-121a-4e25-99e0-a37b419ee3f4",
+    "en": "What do you want?",
+    "pt": "O que você quer?",
+    "category": "Chuks"
+  },
+  {
+    "id": "941fc4e8-c350-483f-aefa-6b7e1fa2320b",
+    "en": "Did you eat?",
+    "pt": "Você comeu?",
+    "category": "Chuks"
+  },
+  {
+    "id": "df36bbc4-a822-4f7f-a58d-72e559f6d28e",
+    "en": "I don't know",
+    "pt": "Eu não sei",
+    "category": "Chuks"
+  },
+  {
+    "id": "4c464c12-d8c7-491c-a338-af9b7c95186d",
+    "en": "Going to",
+    "pt": "Indo para / Vou(futuro)",
+    "category": "Chuks"
+  },
+  {
+    "id": "77083d8e-1cba-487e-8ce4-662948b0e947",
+    "en": "Want to",
+    "pt": "Querer / Quer",
+    "category": "Chuks"
+  },
+  {
+    "id": "f5589333-1a2b-4486-9fb9-11a6f35408eb",
+    "en": "Have to",
+    "pt": "Ter que / Ter de",
+    "category": "Chuks"
+  },
+  {
+    "id": "90c449b4-25e6-4e34-b432-e4d05f7ccee2",
+    "en": "Give me",
+    "pt": "Dá-me / Me dá",
+    "category": "Chuks"
+  },
+  {
+    "id": "fdb6d09d-ba47-4b6f-a9a4-cd1bcefd3ce6",
+    "en": "Do you want to",
+    "pt": "Você quer",
+    "category": "Chuks"
+  },
+  {
+    "id": "d458caa8-3ed6-4383-9ece-8b590b02a916",
+    "en": "Why did you lie",
+    "pt": "Por que você mentiu?",
+    "category": "Chuks"
+  },
+  {
+    "id": "57d69fcb-4863-4529-80d6-f3c924123511",
+    "en": "What did he do",
+    "pt": "O que ele fez?",
+    "category": "Chuks"
+  },
+  {
+    "id": "3e1a21e8-fa97-43b9-89e8-2edcd5304c1e",
+    "en": "I don't know",
+    "pt": "Eu não sei",
+    "category": "Chuks"
+  },
+  {
+    "id": "4e8faebb-70b0-4a63-ab32-0bdee0a0b742",
+    "en": "Look at you",
+    "pt": "Olhe para você",
+    "category": "Chuks"
   }
 ]

@@ -20,14 +20,16 @@
       <div class="grid"><label>Ingles<input [(ngModel)]="en" placeholder="" /></label><label>Portugues<input
             [(ngModel)]="pt" placeholder="" /></label></div>
       <label>Categoria<input [(ngModel)]="category" placeholder="Opcional" /></label>
+      <label>Pronunciacao<input [(ngModel)]="pronunciation" placeholder="Opcional" /></label>
       <button class="primary wide" (click)="addWord()">Adicionar</button>
-      <p class="success" *ngIf="message">{{ message }}</p>
+      <!-- <p class="success" *ngIf="message">{{ message }}</p> -->
     </div>
 
     <div class="card">
       <h2>Importar palavras</h2>
-      <p>Selecione um arquivo JSON ou CSV com as colunas [ <strong>id | en | pt | category </strong>].</p>
+      <p>Selecione um arquivo JSON ou CSV com as colunas [ <strong>id | en | pt | category | pronunciation </strong>].</p>
       <input type="file" accept="application/json,.json,text/csv,.csv" (change)="importWords($event)" />
+      <p class="success" *ngIf="message">{{ message }}</p>
     </div>
 
     <div class="card">
@@ -36,7 +38,7 @@
           *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
       <p *ngIf="!filteredWords.length">Nenhuma palavra nesta categoria.</p>
       <ul>
-        <li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} <small>({{ word.category ||
+        <li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} {{ word.pronunciation || ''}}<small>({{ word.category ||
               'Sem categoria' }})</small></span><button (click)="removeWord(word.id!)">Remover</button></li>
       </ul>
     </div>
