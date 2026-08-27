@@ -1,33 +1,5 @@
 [
   {
-    "id": "shared-004",
-    "en": "as",
-    "pt": "como",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "shared-005",
-    "en": "ago",
-    "pt": "atrás",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "shared-006",
-    "en": "be",
-    "pt": "ser/estar",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "shared-007",
-    "en": "better",
-    "pt": "melhor",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "shared-008",
     "en": "breakdown",
     "pt": "ruptura",
@@ -48,15 +20,8 @@
     "pronunciation": ""
   },
   {
-    "id": "shared-1783818124234",
-    "en": "It",
-    "pt": "isso",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "shared-1783818222299",
-    "en": "mean",
+    "en": "mean | means",
     "pt": "significar",
     "category": "",
     "pronunciation": ""
@@ -65,13 +30,6 @@
     "id": "shared-1783818234705",
     "en": "should",
     "pt": "deveria",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "56bcb754-91b1-4780-a63d-67dab709f89c",
-    "en": "other",
-    "pt": "outro",
     "category": "",
     "pronunciation": ""
   },
@@ -121,13 +79,6 @@
     "id": "fe75ae8a-6a74-4ebd-813c-1c18a6690cfb",
     "en": "everywhere",
     "pt": "em todo lugar",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "cb00dea6-1dfb-4d23-993d-a5faa16055a2",
-    "en": "means",
-    "pt": "sentir",
     "category": "",
     "pronunciation": ""
   },
@@ -231,8 +182,8 @@
   },
   {
     "id": "8e1c3e75-92aa-4b4e-8aeb-cba700f4bbec",
-    "en": "there",
-    "pt": "há/existe",
+    "en": "there are / there is   ",
+    "pt": "há/existe/lá",
     "category": "",
     "pronunciation": ""
   },
@@ -240,13 +191,6 @@
     "id": "88fd773b-3244-4ec4-be9c-6c61bd6fe458",
     "en": "on",
     "pt": "em",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "983b06f4-5820-413b-93ff-b428bdca0971",
-    "en": "to",
-    "pt": "para",
     "category": "",
     "pronunciation": ""
   },
@@ -260,7 +204,7 @@
   {
     "id": "3eed2611-8dc1-41b5-b98d-18a755659756",
     "en": "apart",
-    "pt": "separado/separada",
+    "pt": "separado / separada",
     "category": "",
     "pronunciation": ""
   },
@@ -325,13 +269,6 @@
     "pronunciation": ""
   },
   {
-    "id": "5490719a-b468-4f8e-baff-d153c03a122a",
-    "en": "would",
-    "pt": "iria / faria",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "92f37fb7-e7c2-4593-9e0a-9660a6dd2560",
     "en": "we",
     "pt": "nós",
@@ -367,13 +304,6 @@
     "pronunciation": ""
   },
   {
-    "id": "ba12d325-4284-4e27-a30d-357a5560aedd",
-    "en": "be",
-    "pt": "ser / estar",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "785a0505-a8d3-4b2e-9a17-70fee9ffeed3",
     "en": "living",
     "pt": "vivendo",
@@ -395,27 +325,6 @@
     "pronunciation": ""
   },
   {
-    "id": "c2bc94c1-483c-48cf-a9c8-2cfa1e19b547",
-    "en": "think",
-    "pt": "pensar / acho",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "5a0ac166-2a03-4bb7-9b79-9ef2e7fee5fd",
-    "en": "there",
-    "pt": "há / lá",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "60c69018-9d3b-4ea7-81a0-5b2cde427644",
-    "en": "are",
-    "pt": "são / existem",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "02dbf196-5088-4607-a7a3-00590c30cae8",
     "en": "main",
     "pt": "principal",
@@ -426,27 +335,6 @@
     "id": "36d44041-023a-4ece-9d05-d3d14885bebb",
     "en": "kinds",
     "pt": "tipos",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "91f745d3-5715-43cc-8b20-ced7159c9014",
-    "en": "of",
-    "pt": "de",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "4fab383c-71f5-440e-ac39-0a6164f765f9",
-    "en": "The",
-    "pt": "o / a",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "2ae4609d-b2b3-48b4-8951-85636f05bb7f",
-    "en": "computers",
-    "pt": "computadores",
     "category": "",
     "pronunciation": ""
   },
@@ -535,20 +423,6 @@
     "pronunciation": ""
   },
   {
-    "id": "a8720396-83dd-49c9-ae7a-5a24b12c1f8d",
-    "en": "the",
-    "pt": "o / a",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "a0d8ecc9-2cb1-43da-8d1b-83c22b2eef6b",
-    "en": "time",
-    "pt": "tempo",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "4fb370fb-b4b5-4c0a-b1bc-1a6593c98076",
     "en": "that",
     "pt": "isso / que",
@@ -570,23 +444,9 @@
     "pronunciation": ""
   },
   {
-    "id": "7f758335-1adb-4a30-89b9-70d113b72f98",
-    "en": "is",
-    "pt": "é / está",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "4f318f1b-80f8-444f-8a7b-dbd076587c1b",
     "en": "really",
     "pt": "realmente",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "5e2ac583-6c18-496c-a1dd-1f5ad8a4bdd4",
-    "en": "It's",
-    "pt": "é / isso é",
     "category": "",
     "pronunciation": ""
   },
@@ -633,23 +493,9 @@
     "pronunciation": ""
   },
   {
-    "id": "2d43a03d-b419-49e5-9d52-15ed9b6858f2",
-    "en": "love",
-    "pt": "adoro / amo",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "ddaebc50-9cd1-4123-a440-7529fa1d64ba",
     "en": "this",
     "pt": "isso",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "fac4f975-6918-4954-b61a-a3539feeb370",
-    "en": "so",
-    "pt": "tão",
     "category": "",
     "pronunciation": ""
   },
@@ -682,13 +528,6 @@
     "pronunciation": ""
   },
   {
-    "id": "28144438-4323-41fe-ac64-57f2829e1053",
-    "en": "what",
-    "pt": "o que",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
     "id": "01720ab6-f47a-48b0-8ddd-c1f306a28226",
     "en": "we'll",
     "pt": "nós teremos",
@@ -706,20 +545,6 @@
     "id": "8fc0fe52-d6aa-4524-a65f-24684db7d29b",
     "en": "future",
     "pt": "futuro",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "f4276455-4e9c-407c-8c6a-4ab258fd709e",
-    "en": "then",
-    "pt": "então",
-    "category": "",
-    "pronunciation": ""
-  },
-  {
-    "id": "0734b59a-afba-477b-821e-06b12c992412",
-    "en": "a",
-    "pt": "um / uma",
     "category": "",
     "pronunciation": ""
   },
@@ -878,5 +703,161 @@
     "en": "Look at you",
     "pt": "Olhe para você",
     "category": "Chuks"
+  },
+  {
+    "id": "7652ae86-1f6c-4b9d-9c56-e190c9129838",
+    "en": "I gotta ...",
+    "pt": "Eu tenho que ...",
+    "category": "Chuks"
+  },
+  {
+    "id": "3f055e2c-2ae3-40ef-90fd-2349bf3b68ea",
+    "en": "I just",
+    "pt": "Eu acabei de"
+  },
+  {
+    "id": "e1b9deb1-c9b4-4f97-94ca-905052c10332",
+    "en": "How about ...",
+    "pt": "Que tal ..."
+  },
+  {
+    "id": "0e332e78-4b56-431b-b350-21eb8a9b129d",
+    "en": "It musta been ...",
+    "pt": "Deve ter sido ..."
+  },
+  {
+    "id": "43209eb7-d933-45fc-836e-3bd0181c08ce",
+    "en": "I'd better ...",
+    "pt": "É melhor eu ..."
+  },
+  {
+    "id": "824731bd-e636-4f84-9302-a38dbcf4f1cd",
+    "en": "I'm hooked on",
+    "pt": "Eu estou viciado em/naquele"
+  },
+  {
+    "id": "d4d185e0-aae1-4f7e-a3ce-a836eb8b204e",
+    "en": "Mind if I",
+    "pt": "Se importa se eu"
+  },
+  {
+    "id": "4eefe573-7ad8-4c1e-8f3a-09dab1577670",
+    "en": "I kinda ...",
+    "pt": "Eu meio que ..."
+  },
+  {
+    "id": "cf11d42e-b133-4470-be89-17b55cfbc714",
+    "en": "I can't stand",
+    "pt": "Eu não suporto"
+  },
+  {
+    "id": "1d768c50-5110-4dd6-bc80-63e958200f1e",
+    "en": "Can I have a",
+    "pt": "Você pode me trazer um/uma ou Posso ter um"
+  },
+  {
+    "id": "33429909-ab40-4b3b-a027-3fef749bc831",
+    "en": "I feel like",
+    "pt": "Estou a fim de"
+  },
+  {
+    "id": "b2c2a42c-8fcc-487e-ba8b-350fed693af9",
+    "en": "I'm looking for ...",
+    "pt": "Eu estou procurando ..."
+  },
+  {
+    "id": "04ed2c08-4f8b-4fb8-a658-db680d0b4bea",
+    "en": "I used to ...",
+    "pt": "Eu costumava ..."
+  },
+  {
+    "id": "fcb711de-6cce-468a-b85c-16181c8a4a01",
+    "en": "I'm missing a ...",
+    "pt": "Está faltando um ..."
+  },
+  {
+    "id": "04c00dda-6979-4fb1-9d5b-d6d2e1fa775d",
+    "en": "I'm into ...",
+    "pt": "Eu curto ..."
+  },
+  {
+    "id": "371eaf71-fffd-4dfc-83ee-172f03623bbc",
+    "en": "I care about ...",
+    "pt": "Eu me importo com ..."
+  },
+  {
+    "id": "23fc47df-b363-4ee1-b686-45c0fd31d01a",
+    "en": "I ran out of ...",
+    "pt": "Eu fiquei sem ..."
+  },
+  {
+    "id": "d54f7116-f015-46bf-8663-8b81300f1a56",
+    "en": "saw",
+    "pt": "viu / vi  👉🏼  passado de see"
+  },
+  {
+    "id": "d38f0d14-d2fc-4ee2-a956-7f3d569f617d",
+    "en": "thought",
+    "pt": "pensar / achar"
+  },
+  {
+    "id": "45d2ec1e-62da-4278-84db-24ced2982508",
+    "en": "drank",
+    "pt": "bebeu / bebi  👉🏼  passado de drink"
+  },
+  {
+    "id": "2615ea26-6871-4e77-ac75-7d520f4c4914",
+    "en": "drew",
+    "pt": "desenhou 👉🏼 passado de draw"
+  },
+  {
+    "id": "cd5c00eb-0917-4224-86ea-695dc4d526ae",
+    "en": "wrote",
+    "pt": "escreveu  👉🏼  passado de write"
+  },
+  {
+    "id": "a9f52344-c43b-4fba-973c-f5613a78c062",
+    "en": "took",
+    "pt": "pegou / levou  👉🏼  passado de take"
+  },
+  {
+    "id": "9e950dfb-ed5b-41ed-9c75-02449faea997",
+    "en": "slept",
+    "pt": "dormiu  👉🏼  passado de sleep"
+  },
+  {
+    "id": "4a252474-65a6-4ab1-b4d3-2d511a181307",
+    "en": "quickly",
+    "pt": "rapidamente / depressa"
+  },
+  {
+    "id": "6d4f0f8b-cb1f-438f-8414-883c5593cd33",
+    "en": "hard",
+    "pt": "difícil / duro / com força"
+  },
+  {
+    "id": "d60b4f68-99c2-43ce-a9e5-9baff7844717",
+    "en": "worry",
+    "pt": "preocupar-se / preocupação"
+  },
+  {
+    "id": "d8a02d55-0fe7-4497-8da7-46039b0e8db9",
+    "en": "danger",
+    "pt": "perigo"
+  },
+  {
+    "id": "395e4b96-7c70-4ca4-8a34-7d43dd8134cb",
+    "en": "awful",
+    "pt": "horrível / péssimo"
+  },
+  {
+    "id": "cf5926cb-cc8f-4ce6-84d1-75b2e73a531c",
+    "en": "sad",
+    "pt": "triste"
+  },
+  {
+    "id": "408c4bca-d682-4b1f-93a4-0ab91c1fa7a8",
+    "en": "stay",
+    "pt": "ficar / permanecer"
   }
 ]
