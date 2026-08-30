@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type Word = { id?: string; en: string; pt: string; category?: string, pronunciation: string; };
+type Word = { id?: string; en: string; pt: string; category?: string, pronunciation: string; sentence?: string };
 type Score = {
   id: string;
   user: string;
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   pt = '';
   category = '';
   pronunciation = '';
+  sentence = '';
   filter = '';
   message = '';
   selection: string[] = [];
@@ -115,13 +116,15 @@ export class AppComponent implements OnInit {
     }
     this.persistWords([{ id: crypto.randomUUID(), en, pt, 
       category: this.category.trim() || undefined, 
-      pronunciation: this.pronunciation.trim() }])
+      pronunciation: this.pronunciation.trim(), 
+      sentence: this.sentence.trim() || undefined }])
       .then(words => {
         this.sharedWords = [...this.sharedWords, ...words];
         this.en = '';
         this.pt = '';
         this.category = '';
         this.pronunciation = '';
+        this.sentence = '';
         // this.message = 'Palavra adicionada ao arquivo words.json.';
         this.message = 'Palavra adicionada com sucesso.';
       })
@@ -243,9 +246,8 @@ private persistWords(words: Word[]): Promise<Word[]> {
       value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
     let expectedNormalized = normalize(this.expected);
-    let arr = expectedNormalized.split('/');
+    let arr = expectedNormalized.split(' / ');
 
-    // const correct = normalize(this.answer) === normalize(this.expected);
     const correct = arr.includes(normalize(this.answer));
     this.result = { correct, expected: this.expected };
     correct ? this.right++ : this.wrong++;

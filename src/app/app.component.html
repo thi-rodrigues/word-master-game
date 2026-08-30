@@ -27,7 +27,8 @@
 
     <div class="card">
       <h2>Importar palavras</h2>
-      <p>Selecione um arquivo JSON ou CSV com as colunas [ <strong>id | en | pt | category | pronunciation </strong>].</p>
+      <p>Selecione um arquivo JSON ou CSV com as colunas [ <strong>id | en | pt | category | pronunciation </strong>].
+      </p>
       <input type="file" accept="application/json,.json,text/csv,.csv" (change)="importWords($event)" />
       <p class="success" *ngIf="message">{{ message }}</p>
     </div>
@@ -38,7 +39,8 @@
           *ngFor="let c of categories" [class.primary]="filter === c" (click)="filter = c">{{ c }}</button></div>
       <p *ngIf="!filteredWords.length">Nenhuma palavra nesta categoria.</p>
       <ul>
-        <li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} {{ word.pronunciation || ''}}<small>({{ word.category ||
+        <li *ngFor="let word of filteredWords"><span><b>{{ word.en }}</b> - {{ word.pt }} {{ word.pronunciation ||
+            ''}}<small>({{ word.category ||
               'Sem categoria' }})</small></span><button (click)="removeWord(word.id!)">Remover</button></li>
       </ul>
     </div>
@@ -92,11 +94,14 @@
 
         <p *ngIf="result" [class.success]="result.correct" [class.error]="!result.correct">{{ result.correct ? 'Correto!
           ' : 'Resposta correta: ' }}{{ result.expected }}</p>
+
+        <p><b>Pronunciação:</b> {{ queue[idx].pronunciation || '' }}</p>
+        <p><b>Frase:</b> {{ queue[idx].sentence || '' }}</p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>
 
         <div class="pause-finish">
           <button (click)="togglePause()">Pausar</button>
-          <button class="danger" (click)="complete()">Finalizar jogo</button>
+          <!-- <button class="danger" (click)="complete()">Finalizar jogo</button>-->
         </div>
       </div>
     </div>
@@ -134,10 +139,10 @@
           alt="Google (Noto Color Emoji 17.0)" height="21">
 
       </button>
-      <!-- <button (click)="logout()">Sair ({{ userLogged }})</button> -->
-      <button (click)="logout()"><img
+      
+      <button (click)="view === 'quiz' ? complete() : logout()"><img
           src="https://images.emojiterra.com/google/noto-emoji/unicode-17.0/color/svg/274c.svg"
           alt="Google (Noto Color Emoji 17.0)" height="21"> </button>
     </div>
   </nav>
-</main>
+</main> 
