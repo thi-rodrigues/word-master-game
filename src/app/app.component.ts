@@ -51,6 +51,16 @@ export class AppComponent implements OnInit {
   startedAt = 0;
   scores: Score[] = [];
   resumed = false;
+  audioUrl = '';
+  audioLoading = false;
+  audioError = '';
+  private audio?: HTMLAudioElement;
+  private audioCache = new Map<string, string>();
+  private audioFailures = new Map<string, number>();
+
+  private get audioCacheKey() {
+    return 'vocab-audio-cache-v1';
+  }
 
   private get sessionKey() {
     return `vocab-session-${(this.userLogged || 'anon').trim()}`;
@@ -59,6 +69,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userLogged = localStorage.getItem('userLogged') || '';
     this.scores = this.read<Score[]>('vocab-scores-v1', []);
+    this.audioCache = new Map(Object.entries(this.read<Record<string, string>>(this.audioCacheKey, {})));
     this.restoreSession();
     fetch('/words.json')
       .then(response => {
@@ -120,6 +131,7 @@ export class AppComponent implements OnInit {
     this.wrong = saved.wrong || 0;
     this.elapsed = saved.elapsed || 0;
     this.startedAt = saved.startedAt || Date.now();
+    this.resetAudio();
     this.answer = '';
     this.result = null;
     this.paused = false;
@@ -264,6 +276,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
     this.paused = this.finished = false;
     this.startedAt = Date.now();
     this.resumed = false;
+    this.resetAudio();
     this.view = 'quiz';
     this.startTimer();
     this.saveSession();
@@ -275,6 +288,202 @@ private persistWords(words: Word[]): Promise<Word[]> {
 
   get currentLevel() {
     return this.current?.level?.trim() || '';
+  }
+
+  async speak() {
+    if (this.audioLoading) return;
+    if (!this.current) return;
+    this.audioLoading = true;
+    this.audioError = '';
+    try {
+      const url = await this.resolveAudio();
+      if (!url) {
+        this.speakOffline();
+        return;
+      }
+      this.audioUrl = url;
+      this.persistAudioCache();
+      this.audio?.pause();
+      this.audio = new Audio(url);
+      this.audio.addEventListener('error', () => {
+        this.audioError = 'Audio indisponivel no momento.';
+        this.audioFailures.set(this.termForAudio().toLowerCase(), Date.now());
+        this.audioUrl = '';
+      });
+      await this.playWithRetry(this.audio, 0);
+    } catch {
+      this.audioError = 'Nao foi possivel tocar o audio.';
+    } finally {
+      this.audioLoading = false;
+    }
+  }
+
+  private async resolveAudio(): Promise<string> {
+    const term = this.termForAudio();
+    if (!term) return '';
+    const key = term.toLowerCase();
+    const cached = this.audioCache.get(key);
+    if (cached) return cached;
+
+    const providers: Array<() => Promise<string>> = [
+      () => this.fromDictionaryApi(key),
+      () => this.fromWiktionary(key),
+      () => this.fromResponsiveVoice(key),
+    ];
+
+    for (const provider of providers) {
+      try {
+        const url = await provider();
+        if (url) {
+          this.audioCache.set(key, url);
+          this.audioFailures.delete(key);
+          this.persistAudioCache();
+          return url;
+        }
+      } catch {
+        // tenta o proximo provedor
+      }
+    }
+
+    // Nenhum provedor respondeu: repete a cadeia completa em uma segunda rodada.
+    for (const provider of providers) {
+      try {
+        const url = await provider();
+        if (url) {
+          this.audioCache.set(key, url);
+          this.audioFailures.delete(key);
+          this.persistAudioCache();
+          return url;
+        }
+      } catch {
+        // ignora
+      }
+    }
+
+    this.audioFailures.set(key, Date.now());
+    return '';
+  }
+
+  private async fromDictionaryApi(key: string): Promise<string> {
+    const entries = await this.requestJson(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}`,
+    );
+    if (!Array.isArray(entries)) return '';
+    for (const entry of entries) {
+      for (const phonetic of entry.phonetics || []) {
+        if (phonetic.audio) return phonetic.audio as string;
+      }
+    }
+    return '';
+  }
+
+  private async fromWiktionary(key: string): Promise<string> {
+    const title = key.replace(/_/g, ' ');
+    const data = await this.requestJson(
+      `https://en.wiktionary.org/api/rest_v1/page/media-list/${encodeURIComponent(title)}`,
+    );
+    const items = (data as { items?: any[] })?.items || [];
+    const names = items
+      .filter((item: any) => item.type === 'audio' && typeof item.title === 'string')
+      .map((item: any) => item.title.replace(/^File:/i, ''))
+      // prioriza variantes americana/britanica antes de outros idiomas
+      .filter((name: string) => /^(en-us|en-uk|en-us-|en-uk-|us-|uk-|en[-_])/i.test(name))
+      .sort((a: string, b: string) => a.length - b.length);
+    const pick = names[0] || items.find((item: any) => item.type === 'audio')?.title;
+    if (!pick) return '';
+    const url = `https://en.wiktionary.org/wiki/Special:FilePath/${encodeURIComponent(
+      pick.replace(/^File:/i, ''),
+    )}`;
+    return (await this.urlPlayable(url)) ? url : '';
+  }
+
+  private async fromResponsiveVoice(key: string): Promise<string> {
+    const cached = this.audioCache.get(`rv:${key}`);
+    if (cached) return cached;
+    const url = `https://voice-responsive.com/responsivevoice.php?text=${encodeURIComponent(key)}&lang=en`;
+    const ok = await this.urlPlayable(url);
+    this.audioCache.set(`rv:${key}`, url);
+    this.persistAudioCache();
+    return ok ? url : '';
+  }
+
+  private urlPlayable(url: string) {
+    return new Promise<boolean>(resolve => {
+      const probe = new Audio();
+      const done = (value: boolean) => {
+        probe.oncanplaythrough = null;
+        probe.onerror = null;
+        resolve(value);
+      };
+      probe.addEventListener('canplaythrough', () => done(true), { once: true });
+      probe.addEventListener('error', () => done(false), { once: true });
+      probe.src = url;
+      probe.load();
+      setTimeout(() => done(false), 8000);
+    });
+  }
+
+  private async playWithRetry(audio: HTMLAudioElement, attempt: number) {
+    try {
+      await audio.play();
+    } catch (err) {
+      if (attempt >= 2) throw err;
+      await new Promise(resolve => setTimeout(resolve, 700 * (attempt + 1)));
+      audio.load();
+      await this.playWithRetry(audio, attempt + 1);
+    }
+  }
+
+  private termForAudio() {
+    const word = this.current;
+    if (!word) return '';
+    const term = (word.en || word.pt || '').replace(/\s*\/\s*/g, ' ').trim();
+    return term;
+  }
+
+  private speakOffline() {
+    const term = this.termForAudio();
+    if (!term || !('speechSynthesis' in window)) {
+      this.audioError = 'Sem audio disponivel.';
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(term);
+    utterance.lang = 'en-US';
+    const voice = speechSynthesis.getVoices().find(item => item.lang.startsWith('en'));
+    if (voice) utterance.voice = voice;
+    this.audioError = '';
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  }
+
+  private persistAudioCache() {
+    localStorage.setItem(this.audioCacheKey, JSON.stringify(Object.fromEntries(this.audioCache)));
+  }
+
+  private async requestJson(url: string, attempts = 2): Promise<any> {
+    let lastError: any;
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
+        if (response.status === 404) return null;
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+      } catch (err) {
+        lastError = err;
+        await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+      }
+    }
+    throw lastError || new Error('Request failed.');
+  }
+
+  private resetAudio() {
+    this.audio?.pause();
+    this.audio = undefined;
+    this.audioUrl = '';
+    this.audioError = '';
   }
 
   get prompt() {
@@ -306,6 +515,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
   previous() {
     if (this.idx > 0) {
       this.idx--;
+      this.resetAudio();
       this.answer = '';
       this.result = null;
       this.saveSession();
@@ -313,6 +523,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
   }
 
   next() {
+    this.resetAudio();
     this.idx++;
     this.answer = '';
     this.result = null;

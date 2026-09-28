@@ -99,6 +99,11 @@
         <p><b>Pronunciação:</b> {{ queue[idx].pronunciation || '' }}</p>
         <p><b>Frase:</b> {{ queue[idx].sentence || '' }}</p>
         <p *ngIf="currentLevel"><b>Nivel:</b> {{ currentLevel }}</p>
+        <p>
+          <button type="button" (click)="speak()" [disabled]="audioLoading">
+            {{ audioLoading ? 'Carregando audio...' : 'Ouvir palavra' }}
+          </button>
+          <small *ngIf="audioError"> {{ audioError }}</small>        </p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>
 
         <div class="pause-finish">
