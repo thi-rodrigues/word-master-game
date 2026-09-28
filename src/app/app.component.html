@@ -100,8 +100,21 @@
         <p><b>Frase:</b> {{ queue[idx].sentence || '' }}</p>
         <p *ngIf="currentLevel"><b>Nivel:</b> {{ currentLevel }}</p>
         <p>
-          <button type="button" (click)="speak()" [disabled]="audioLoading">
-            {{ audioLoading ? 'Carregando audio...' : 'Ouvir palavra' }}
+          <button type="button" class="speak-button" (click)="speak()" [disabled]="audioLoading"
+            [title]="audioLoading ? 'Carregando audio...' : 'Ouvir palavra'"
+            [attr.aria-label]="audioLoading ? 'Carregando audio' : 'Ouvir palavra'">
+            <svg class="speak-icon" [class.loading]="audioLoading" viewBox="0 0 24 24" width="24" height="24"
+              fill="currentColor" aria-hidden="true">
+              <path d="M3 9v6h4l5 5V4L7 9H3z" />
+              <ng-container *ngIf="!audioLoading; else waves">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91
+                  7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+              </ng-container>
+              <ng-template #waves>
+                <circle cx="18" cy="12" r="1.8" />
+                <circle cx="21" cy="12" r="1.8" />
+              </ng-template>
+            </svg>
           </button>
           <small *ngIf="audioError"> {{ audioError }}</small>        </p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>

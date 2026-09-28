@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
   private audio?: HTMLAudioElement;
   private audioCache = new Map<string, string>();
   private audioFailures = new Map<string, number>();
+  private sfxContext?: AudioContext;
 
   private get audioCacheKey() {
     return 'vocab-audio-cache-v1';
@@ -325,9 +326,11 @@ private persistWords(words: Word[]): Promise<Word[]> {
     const cached = this.audioCache.get(key);
     if (cached) return cached;
 
+    // Ordem testada em 28/09/2026: Wiktionary responde de forma confiavel e com
+    // cobertura alta; dictionaryapi.dev e lenta/ intermitente; responsivevoice esta fora do ar.
     const providers: Array<() => Promise<string>> = [
-      () => this.fromDictionaryApi(key),
       () => this.fromWiktionary(key),
+      () => this.fromDictionaryApi(key),
       () => this.fromResponsiveVoice(key),
     ];
 
@@ -456,6 +459,40 @@ private persistWords(words: Word[]): Promise<Word[]> {
     speechSynthesis.speak(utterance);
   }
 
+  /** Sons curtos de acerto/erro sintetizados via Web Audio (sem arquivos externos). */
+  private playFeedback(correct: boolean) {
+    try {
+      const Ctx = (window as any).AudioContext || (window as any).webkitAudioContext;
+      if (!Ctx) return;
+      if (!this.sfxContext) {
+        this.sfxContext = new Ctx() as AudioContext;
+      }
+      const ctx = this.sfxContext;
+      if (ctx.state === 'suspended') ctx.resume();
+
+      const notes = correct ? [660, 880, 1180] : [300, 190];
+      const noteLength = correct ? 0.1 : 0.16;
+      const type: OscillatorType = correct ? 'sine' : 'sawtooth';
+
+      notes.forEach((frequency, index) => {
+        const start = ctx.currentTime + index * noteLength;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(frequency, start);
+        const peak = correct ? 0.16 : 0.12;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(peak, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + noteLength + 0.05);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + noteLength + 0.08);
+      });
+    } catch {
+      // audio de feedback e opcional
+    }
+  }
+
   private persistAudioCache() {
     localStorage.setItem(this.audioCacheKey, JSON.stringify(Object.fromEntries(this.audioCache)));
   }
@@ -509,6 +546,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
     const correct = arr.includes(normalize(this.answer));
     this.result = { correct, expected: this.expected };
     correct ? this.right++ : this.wrong++;
+    this.playFeedback(correct);
     this.saveSession();
   }
 
