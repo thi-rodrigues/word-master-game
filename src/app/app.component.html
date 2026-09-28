@@ -77,7 +77,8 @@
     </div>
 
     <div *ngIf="!finished">
-      <p>{{ lang === 'pt' ? 'Palavra em ingles' : 'Palavra em portugues' }} - {{ idx + 1 }} / {{ queue.length }}</p>
+      <p>{{ lang === 'pt' ? 'Palavra em ingles' : 'Palavra em portugues' }} - {{ idx + 1 }} / {{ queue.length }}<span *ngIf="currentLevel">
+          &nbsp;|&nbsp;Nivel: <b>{{ currentLevel }}</b></span></p>
       <h1>{{ prompt }}</h1>
       <div *ngIf="paused">
         <p>Jogo pausado</p><button class="primary" (click)="togglePause()">Continuar</button>
@@ -97,6 +98,7 @@
 
         <p><b>Pronunciação:</b> {{ queue[idx].pronunciation || '' }}</p>
         <p><b>Frase:</b> {{ queue[idx].sentence || '' }}</p>
+        <p *ngIf="currentLevel"><b>Nivel:</b> {{ currentLevel }}</p>
         <p>Acertos: {{ right }} - Erros: {{ wrong }}</p>
 
         <div class="pause-finish">

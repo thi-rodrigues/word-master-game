@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type Word = { id?: string; en: string; pt: string; category?: string, pronunciation: string; sentence?: string };
+type Word = { id?: string; en: string; pt: string; category?: string, pronunciation: string; sentence?: string; level?: string };
 type Score = {
   id: string;
   user: string;
@@ -271,6 +271,10 @@ private persistWords(words: Word[]): Promise<Word[]> {
 
   get current() {
     return this.queue[this.idx];
+  }
+
+  get currentLevel() {
+    return this.current?.level?.trim() || '';
   }
 
   get prompt() {
