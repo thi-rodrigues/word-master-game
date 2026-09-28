@@ -50,10 +50,16 @@ export class AppComponent implements OnInit {
   timer?: number;
   startedAt = 0;
   scores: Score[] = [];
+  resumed = false;
+
+  private get sessionKey() {
+    return `vocab-session-${(this.userLogged || 'anon').trim()}`;
+  }
 
   ngOnInit() {
     this.userLogged = localStorage.getItem('userLogged') || '';
     this.scores = this.read<Score[]>('vocab-scores-v1', []);
+    this.restoreSession();
     fetch('/words.json')
       .then(response => {
         if (!response.ok) throw new Error('Unable to load vocabulary.');
@@ -90,6 +96,43 @@ export class AppComponent implements OnInit {
     }
   }
 
+  private saveSession() {
+    if (this.finished || !this.queue.length) return;
+    localStorage.setItem(this.sessionKey, JSON.stringify({
+      lang: this.lang,
+      queue: this.queue,
+      idx: this.idx,
+      right: this.right,
+      wrong: this.wrong,
+      elapsed: this.elapsed,
+      startedAt: this.startedAt,
+      updatedAt: Date.now(),
+    }));
+  }
+
+  private restoreSession() {
+    const saved = this.read<any>(this.sessionKey, null);
+    if (!saved || !Array.isArray(saved.queue) || !saved.queue.length) return;
+    if (saved.lang === 'pt' || saved.lang === 'en') this.lang = saved.lang;
+    this.queue = saved.queue;
+    this.idx = Math.min(Math.max(saved.idx || 0, 0), saved.queue.length - 1);
+    this.right = saved.right || 0;
+    this.wrong = saved.wrong || 0;
+    this.elapsed = saved.elapsed || 0;
+    this.startedAt = saved.startedAt || Date.now();
+    this.answer = '';
+    this.result = null;
+    this.paused = false;
+    this.finished = false;
+    this.resumed = true;
+    this.view = 'quiz';
+    this.startTimer();
+  }
+
+  private clearSession() {
+    localStorage.removeItem(this.sessionKey);
+  }
+
   register() {
     if (!this.nameInput.trim() && !localStorage.getItem('userLogged')) return;
 
@@ -114,9 +157,9 @@ export class AppComponent implements OnInit {
       this.message = 'Esta palavra ja esta cadastrada.';
       return;
     }
-    this.persistWords([{ id: crypto.randomUUID(), en, pt, 
-      category: this.category.trim() || undefined, 
-      pronunciation: this.pronunciation.trim(), 
+    this.persistWords([{ id: crypto.randomUUID(), en, pt,
+      category: this.category.trim() || undefined,
+      pronunciation: this.pronunciation.trim(),
       sentence: this.sentence.trim() || undefined }])
       .then(words => {
         this.sharedWords = [...this.sharedWords, ...words];
@@ -171,10 +214,10 @@ private persistWords(words: Word[]): Promise<Word[]> {
       body: JSON.stringify({ words }),
     }).then(async response => {
       console.log(response);
-      
+
       const body = await response.json() as { words?: Word[] };
       console.log(body);
-      
+
       if (!response.ok) {
         console.log('Unable to save words.');
           throw new Error('Unable to save words.');
@@ -195,8 +238,8 @@ private persistWords(words: Word[]): Promise<Word[]> {
     if (enIndex < 0 || ptIndex < 0) throw new Error('Invalid CSV headers.');
     return rows.map(row => {
       const cells = row.split(delimiter).map(cell => cell.trim().replace(/^"|"$/g, ''));
-      return { id: crypto.randomUUID(), en: cells[enIndex], 
-        pt: cells[ptIndex], 
+      return { id: crypto.randomUUID(), en: cells[enIndex],
+        pt: cells[ptIndex],
         category: categoryIndex >= 0 ? cells[categoryIndex] : undefined,
         pronunciation: cells[pronunciationIndex] };
     });
@@ -220,8 +263,10 @@ private persistWords(words: Word[]): Promise<Word[]> {
     this.result = null;
     this.paused = this.finished = false;
     this.startedAt = Date.now();
+    this.resumed = false;
     this.view = 'quiz';
     this.startTimer();
+    this.saveSession();
   }
 
   get current() {
@@ -251,6 +296,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
     const correct = arr.includes(normalize(this.answer));
     this.result = { correct, expected: this.expected };
     correct ? this.right++ : this.wrong++;
+    this.saveSession();
   }
 
   previous() {
@@ -258,6 +304,7 @@ private persistWords(words: Word[]): Promise<Word[]> {
       this.idx--;
       this.answer = '';
       this.result = null;
+      this.saveSession();
     }
   }
 
@@ -265,7 +312,11 @@ private persistWords(words: Word[]): Promise<Word[]> {
     this.idx++;
     this.answer = '';
     this.result = null;
-    if (this.idx >= this.queue.length) this.complete();
+    if (this.idx >= this.queue.length) {
+      this.complete();
+    } else {
+      this.saveSession();
+    }
   }
 
 
@@ -292,6 +343,8 @@ private persistWords(words: Word[]): Promise<Word[]> {
     };
     this.scores = [score, ...this.scores];
     localStorage.setItem('vocab-scores-v1', JSON.stringify(this.scores));
+    this.clearSession();
+    this.resumed = false;
   }
 
   restart() {
@@ -301,7 +354,10 @@ private persistWords(words: Word[]): Promise<Word[]> {
   startTimer() {
     window.clearInterval(this.timer);
     this.timer = window.setInterval(() => {
-      if (!this.paused && !this.finished) this.elapsed++;
+      if (!this.paused && !this.finished) {
+        this.elapsed++;
+        this.saveSession();
+      }
     }, 1000);
   }
 
