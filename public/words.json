@@ -3219,5 +3219,1022 @@
     "pronunciation": "hæv ju ˈɛvər hɜrd ʌv",
     "sentence": "Have you ever heard of phishing?",
     "level": "A2"
+  },
+  {
+    "id": "lam-a",
+    "en": "a",
+    "pt": "um / uma",
+    "category": "Palavras",
+    "pronunciation": "ei",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-ahead",
+    "en": "ahead",
+    "pt": "adiante",
+    "category": "Palavras",
+    "pronunciation": "ahîid",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-air",
+    "en": "air",
+    "pt": "ar",
+    "category": "Palavras",
+    "pronunciation": "ér",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-all",
+    "en": "all",
+    "pt": "todo / todos",
+    "category": "Palavras",
+    "pronunciation": "ól",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-am",
+    "en": "am",
+    "pt": "sou / estou",
+    "category": "Palavras",
+    "pronunciation": "âm",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-and",
+    "en": "and",
+    "pt": "e",
+    "category": "Palavras",
+    "pronunciation": "ând",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-animal",
+    "en": "animal",
+    "pt": "animal",
+    "category": "Palavras",
+    "pronunciation": "â-ni-mál",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-awareness",
+    "en": "awareness",
+    "pt": "conscientização",
+    "category": "Palavras",
+    "pronunciation": "awér-nés",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-bad",
+    "en": "bad",
+    "pt": "ruim / mau",
+    "category": "Palavras",
+    "pronunciation": "béd",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-be",
+    "en": "be",
+    "pt": "ser / estar",
+    "category": "Palavras",
+    "pronunciation": "bi",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-better",
+    "en": "better",
+    "pt": "melhor",
+    "category": "Palavras",
+    "pronunciation": "bétâr",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-boost",
+    "en": "boost",
+    "pt": "impulso / injeção",
+    "category": "Palavras",
+    "pronunciation": "búst",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-bright",
+    "en": "bright",
+    "pt": "brilhante / ensolarado",
+    "category": "Palavras",
+    "pronunciation": "bráit",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-by",
+    "en": "by",
+    "pt": "por",
+    "category": "Palavras",
+    "pronunciation": "bái",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-card",
+    "en": "card",
+    "pt": "cartão",
+    "category": "Palavras",
+    "pronunciation": "kárd",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-car-dominated",
+    "en": "car-dominated",
+    "pt": "dominado por carros",
+    "category": "Palavras",
+    "pronunciation": "kár dáminêitid",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-cash",
+    "en": "cash",
+    "pt": "dinheiro em espécie",
+    "category": "Palavras",
+    "pronunciation": "kásh",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-cause",
+    "en": "cause",
+    "pt": "causar",
+    "category": "Palavras",
+    "pronunciation": "kóz",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-chance",
+    "en": "chance",
+    "pt": "chance / oportunidade",
+    "category": "Palavras",
+    "pronunciation": "cháns",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-coins",
+    "en": "coins",
+    "pt": "moedas",
+    "category": "Palavras",
+    "pronunciation": "kóins",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-covering",
+    "en": "covering",
+    "pt": "cobrindo",
+    "category": "Palavras",
+    "pronunciation": "kâvâr-ing",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-crazy",
+    "en": "crazy",
+    "pt": "louco",
+    "category": "Palavras",
+    "pronunciation": "kréizi",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-cutting",
+    "en": "cutting",
+    "pt": "de ponta",
+    "category": "Palavras",
+    "pronunciation": "kâting",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-damage",
+    "en": "damage",
+    "pt": "dano / prejuízo",
+    "category": "Palavras",
+    "pronunciation": "dâmij",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-date",
+    "en": "date",
+    "pt": "data",
+    "category": "Palavras",
+    "pronunciation": "dêit",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-day",
+    "en": "day",
+    "pt": "dia",
+    "category": "Palavras",
+    "pronunciation": "dêi",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-details",
+    "en": "details",
+    "pt": "detalhes / dados",
+    "category": "Palavras",
+    "pronunciation": "ditêis",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-devices",
+    "en": "devices",
+    "pt": "dispositivos / aparelhos",
+    "category": "Palavras",
+    "pronunciation": "diváisis",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-down",
+    "en": "down",
+    "pt": "para baixo",
+    "category": "Palavras",
+    "pronunciation": "dáun",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-drained",
+    "en": "drained",
+    "pt": "esgotado",
+    "category": "Palavras",
+    "pronunciation": "drêind",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-drastically",
+    "en": "drastically",
+    "pt": "drasticamente",
+    "category": "Palavras",
+    "pronunciation": "drástikli",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-dull",
+    "en": "dull",
+    "pt": "nublado / sem brilho",
+    "category": "Palavras",
+    "pronunciation": "dâl",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-dying",
+    "en": "dying",
+    "pt": "morrendo / extinto",
+    "category": "Palavras",
+    "pronunciation": "dái-ing",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-edge",
+    "en": "edge",
+    "pt": "ponta / borda",
+    "category": "Palavras",
+    "pronunciation": "édj",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-energetic",
+    "en": "energetic",
+    "pt": "enérgico",
+    "category": "Palavras",
+    "pronunciation": "enərdjétik",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-energy",
+    "en": "energy",
+    "pt": "energia",
+    "category": "Palavras",
+    "pronunciation": "énârji",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-even",
+    "en": "even",
+    "pt": "mesmo / até",
+    "category": "Palavras",
+    "pronunciation": "íven",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-ever",
+    "en": "ever",
+    "pt": "alguma vez / já",
+    "category": "Palavras",
+    "pronunciation": "évâr",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-fall",
+    "en": "fall",
+    "pt": "cair / queda",
+    "category": "Palavras",
+    "pronunciation": "fól",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-fellow",
+    "en": "fellow",
+    "pt": "colega / companheiro",
+    "category": "Palavras",
+    "pronunciation": "félou",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-for",
+    "en": "for",
+    "pt": "para / por",
+    "category": "Palavras",
+    "pronunciation": "fór",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-freely-expressed",
+    "en": "freely-expressed",
+    "pt": "livremente expresso",
+    "category": "Palavras",
+    "pronunciation": "fríli expréssid",
+    "sentence": "",
+    "level": "C1"
+  },
+  {
+    "id": "lam-full",
+    "en": "full",
+    "pt": "cheio",
+    "category": "Palavras",
+    "pronunciation": "fúl",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-gamers",
+    "en": "gamers",
+    "pt": "jogadores",
+    "category": "Palavras",
+    "pronunciation": "guêimârs",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-gimmick",
+    "en": "gimmick",
+    "pt": "truque passageiro",
+    "category": "Palavras",
+    "pronunciation": "guímik",
+    "sentence": "",
+    "level": "C1"
+  },
+  {
+    "id": "lam-go",
+    "en": "go",
+    "pt": "ir / vai",
+    "category": "Palavras",
+    "pronunciation": "góu",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-habitat",
+    "en": "habitat",
+    "pt": "hábitat",
+    "category": "Palavras",
+    "pronunciation": "hábitat",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-happens",
+    "en": "happens",
+    "pt": "acontece",
+    "category": "Palavras",
+    "pronunciation": "hápenz",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-health",
+    "en": "health",
+    "pt": "saúde",
+    "category": "Palavras",
+    "pronunciation": "hélth",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-heard",
+    "en": "heard",
+    "pt": "ouviu / ouvi",
+    "category": "Palavras",
+    "pronunciation": "hêrd",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-how",
+    "en": "how",
+    "pt": "como",
+    "category": "Palavras",
+    "pronunciation": "háu",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-huge",
+    "en": "huge",
+    "pt": "enorme",
+    "category": "Palavras",
+    "pronunciation": "híudj",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-i",
+    "en": "i",
+    "pt": "eu",
+    "category": "Palavras",
+    "pronunciation": "ái",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-if",
+    "en": "if",
+    "pt": "se",
+    "category": "Palavras",
+    "pronunciation": "íf",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-kingdom",
+    "en": "kingdom",
+    "pt": "reino",
+    "category": "Palavras",
+    "pronunciation": "kíngdâm",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-law",
+    "en": "law",
+    "pt": "lei",
+    "category": "Palavras",
+    "pronunciation": "ló",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-leapt",
+    "en": "leapt",
+    "pt": "saltou / avançou",
+    "category": "Palavras",
+    "pronunciation": "lêpt",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-levels",
+    "en": "levels",
+    "pt": "níveis",
+    "category": "Palavras",
+    "pronunciation": "lêvais",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-lives",
+    "en": "lives",
+    "pt": "vidas",
+    "category": "Palavras",
+    "pronunciation": "láivz",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-miles",
+    "en": "miles",
+    "pt": "milhas",
+    "category": "Palavras",
+    "pronunciation": "máils",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-model",
+    "en": "model",
+    "pt": "modelo",
+    "category": "Palavras",
+    "pronunciation": "mádâl",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-move",
+    "en": "move",
+    "pt": "mover / movimento",
+    "category": "Palavras",
+    "pronunciation": "múv",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-natural",
+    "en": "natural",
+    "pt": "natural",
+    "category": "Palavras",
+    "pronunciation": "nátchural",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-notes",
+    "en": "notes",
+    "pt": "cédulas / notas",
+    "category": "Palavras",
+    "pronunciation": "nóts",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-number",
+    "en": "number",
+    "pt": "número",
+    "category": "Palavras",
+    "pronunciation": "námbar",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-of",
+    "en": "of",
+    "pt": "de",
+    "category": "Palavras",
+    "pronunciation": "ôv",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-once",
+    "en": "once",
+    "pt": "uma vez",
+    "category": "Palavras",
+    "pronunciation": "uâns",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-one",
+    "en": "one",
+    "pt": "um / uma",
+    "category": "Palavras",
+    "pronunciation": "uân",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-one-day",
+    "en": "one-day",
+    "pt": "de um dia só",
+    "category": "Palavras",
+    "pronunciation": "uân déi",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-ordinary",
+    "en": "ordinary",
+    "pt": "comum / ordinário",
+    "category": "Palavras",
+    "pronunciation": "órdinari",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-other",
+    "en": "other",
+    "pt": "outro",
+    "category": "Palavras",
+    "pronunciation": "âder",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-others",
+    "en": "others",
+    "pt": "outros",
+    "category": "Palavras",
+    "pronunciation": "âders",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-part",
+    "en": "part",
+    "pt": "parte",
+    "category": "Palavras",
+    "pronunciation": "párt",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-participation",
+    "en": "participation",
+    "pt": "participação",
+    "category": "Palavras",
+    "pronunciation": "partisipeíshn",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-pay",
+    "en": "pay",
+    "pt": "pagar",
+    "category": "Palavras",
+    "pronunciation": "péi",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-people",
+    "en": "people",
+    "pt": "pessoas",
+    "category": "Palavras",
+    "pronunciation": "pípal",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-purchase",
+    "en": "purchase",
+    "pt": "compra",
+    "category": "Palavras",
+    "pronunciation": "pârtchas",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-rainy",
+    "en": "rainy",
+    "pt": "chuvoso",
+    "category": "Palavras",
+    "pronunciation": "réini",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-raise",
+    "en": "raise",
+    "pt": "aumentar / erguer",
+    "category": "Palavras",
+    "pronunciation": "reiz",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-ready",
+    "en": "ready",
+    "pt": "pronto",
+    "category": "Palavras",
+    "pronunciation": "rédi",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-reason",
+    "en": "reason",
+    "pt": "razão / motivo",
+    "category": "Palavras",
+    "pronunciation": "ríson",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-rely",
+    "en": "rely",
+    "pt": "depender",
+    "category": "Palavras",
+    "pronunciation": "rilái",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-replace",
+    "en": "replace",
+    "pt": "substituir",
+    "category": "Palavras",
+    "pronunciation": "ripléis",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-respect",
+    "en": "respect",
+    "pt": "respeito",
+    "category": "Palavras",
+    "pronunciation": "rispékt",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-risk",
+    "en": "risk",
+    "pt": "risco / arriscar",
+    "category": "Palavras",
+    "pronunciation": "risk",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-short",
+    "en": "short",
+    "pt": "curto",
+    "category": "Palavras",
+    "pronunciation": "short",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-sizeable",
+    "en": "sizeable",
+    "pt": "considerável",
+    "category": "Palavras",
+    "pronunciation": "sáizâbal",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-some",
+    "en": "some",
+    "pt": "alguns / alguns",
+    "category": "Palavras",
+    "pronunciation": "sâm",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-species",
+    "en": "species",
+    "pt": "espécies",
+    "category": "Palavras",
+    "pronunciation": "spíshiz",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-spy",
+    "en": "spy",
+    "pt": "espionar / espião",
+    "category": "Palavras",
+    "pronunciation": "spái",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-streets",
+    "en": "streets",
+    "pt": "ruas",
+    "category": "Palavras",
+    "pronunciation": "stríts",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-summed",
+    "en": "summed",
+    "pt": "resumiu",
+    "category": "Palavras",
+    "pronunciation": "sâmd",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-sunny",
+    "en": "sunny",
+    "pt": "ensolarado",
+    "category": "Palavras",
+    "pronunciation": "sâni",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-switch",
+    "en": "switch",
+    "pt": "mudar / ligar",
+    "category": "Palavras",
+    "pronunciation": "swích",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-take",
+    "en": "take",
+    "pt": "pegar / levar",
+    "category": "Palavras",
+    "pronunciation": "téik",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-the",
+    "en": "the",
+    "pt": "o / a",
+    "category": "Palavras",
+    "pronunciation": "dhé",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-their",
+    "en": "their",
+    "pt": "deles / delas",
+    "category": "Palavras",
+    "pronunciation": "dhéir",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-thing",
+    "en": "thing",
+    "pt": "coisa",
+    "category": "Palavras",
+    "pronunciation": "dhing",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-to",
+    "en": "to",
+    "pt": "para / que",
+    "category": "Palavras",
+    "pronunciation": "tu",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-towards",
+    "en": "towards",
+    "pt": "em direção a",
+    "category": "Palavras",
+    "pronunciation": "tuwórds",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-turned",
+    "en": "turned",
+    "pt": "virou / reduziu",
+    "category": "Palavras",
+    "pronunciation": "têrnd",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-tv",
+    "en": "tv",
+    "pt": "televisão",
+    "category": "Palavras",
+    "pronunciation": "tiví",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-unclogged",
+    "en": "unclogged",
+    "pt": "desobstruídas",
+    "category": "Palavras",
+    "pronunciation": "ânklôguid",
+    "sentence": "",
+    "level": "B2"
+  },
+  {
+    "id": "lam-up",
+    "en": "up",
+    "pt": "para cima",
+    "category": "Palavras",
+    "pronunciation": "âp",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-war",
+    "en": "war",
+    "pt": "guerra",
+    "category": "Palavras",
+    "pronunciation": "uór",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-way",
+    "en": "way",
+    "pt": "maneira",
+    "category": "Palavras",
+    "pronunciation": "uéi",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-where",
+    "en": "where",
+    "pt": "onde",
+    "category": "Palavras",
+    "pronunciation": "uér",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-wild",
+    "en": "wild",
+    "pt": "selvagem / natureza",
+    "category": "Palavras",
+    "pronunciation": "uáild",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-will",
+    "en": "will",
+    "pt": "vai / quer",
+    "category": "Palavras",
+    "pronunciation": "wil",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-within",
+    "en": "within",
+    "pt": "dentro de",
+    "category": "Palavras",
+    "pronunciation": "uidín",
+    "sentence": "",
+    "level": "B1"
+  },
+  {
+    "id": "lam-world",
+    "en": "world",
+    "pt": "mundo",
+    "category": "Palavras",
+    "pronunciation": "uérld",
+    "sentence": "",
+    "level": "A2"
+  },
+  {
+    "id": "lam-you",
+    "en": "you",
+    "pt": "você",
+    "category": "Palavras",
+    "pronunciation": "iú",
+    "sentence": "",
+    "level": "A1"
+  },
+  {
+    "id": "lam-your",
+    "en": "your",
+    "pt": "seu / sua",
+    "category": "Palavras",
+    "pronunciation": "ióor",
+    "sentence": "",
+    "level": "A1"
   }
 ]
